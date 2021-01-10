@@ -1,0 +1,7 @@
+flutter_native_splash:
+  image: assets/FTF_Splash.png
+  color: "ffffff"
+  #image_dark: assets/images/splash-invert.png
+  color_dark: "000000"
+
+  ### flutter pub run flutter_native_splash:create
