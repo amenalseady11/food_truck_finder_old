@@ -6,13 +6,6 @@ class Profile {
   final String name;
   final String cuisine;
   final String description;
-  final String facebook;
-  final String instagram;
-  final double latitude;
-  final double longitude;
-  final String image;
-  //final Timestamp updated;
-  final bool open;
 
   Profile({
     this.id,
@@ -20,12 +13,5 @@ class Profile {
     this.name,
     this.cuisine,
     this.description,
-    this.facebook,
-    this.instagram,
-    this.latitude,
-    this.longitude,
-    this.image,
-    //this.updated,
-    this.open,
   });
 }

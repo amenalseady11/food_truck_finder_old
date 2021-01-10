@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1072177397736",
+    "project_id": "foodtruckfinder-proj",
+    "storage_bucket": "foodtruckfinder-proj.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1072177397736:android:14b4a3b358f1e8e907ee5d",
+        "android_client_info": {
+          "package_name": "cz.bluesoftware.food_truck_finder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1072177397736-01buo9h3fseqbdth112npdqbr77ledf6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADg_d_en1emxLZaVx8NZ0Iao8-St3FBqg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1072177397736-01buo9h3fseqbdth112npdqbr77ledf6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

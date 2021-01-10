@@ -1,4 +1,4 @@
-package com.example.food_truck_finder
+package cz.bluesoftware.food_truck_finder
 
 import io.flutter.embedding.android.FlutterActivity
 

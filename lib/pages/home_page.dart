@@ -5,6 +5,7 @@ import 'list_screen.dart';
 import 'map_screen.dart';
 import 'favorite_screen.dart';
 import 'profile_screen.dart';
+import '../services/db_profiles_service.dart';
 import '../models/profile_model.dart';
 import '../colors.dart';
 
@@ -47,13 +48,15 @@ class _HomePageState extends State<HomePage> {
         ),
         body: IndexedStack(index: tabIndex, children: listScreens),
         bottomNavigationBar: BottomNavigationBar(
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
           selectedItemColor: skyorangeColor,
-          unselectedItemColor: Colors.grey,
-          selectedFontSize: 14.0,
-          // backgroundColor: ,
-          elevation: 6,
-          unselectedIconTheme: IconThemeData(size: 18),
-          selectedIconTheme: IconThemeData(size: 22),
+          unselectedItemColor: Colors.grey,          
+          //selectedFontSize: 14.0,
+          //backgroundColor: ,
+          elevation: 5,
+          unselectedIconTheme: IconThemeData(size: 30),
+          selectedIconTheme: IconThemeData(size: 30),
           currentIndex: tabIndex,
           onTap: (int index) {
             setState(() {
@@ -62,20 +65,20 @@ class _HomePageState extends State<HomePage> {
           },
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.location_on),
-              label: 'List',
+              icon: Icon(Icons.list),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.map),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.heart),
+              label: '',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.storage),
-              label: 'Map',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.storage),
-              label: 'Favorite',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.storage),
-              label: 'Profile',
+              label: '',
             ),
           ],
         ),

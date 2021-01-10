@@ -27,6 +27,11 @@ dependencies:
   # Dataflows
   provider: ^4.3.2+3
 
+  # DB
+  firebase_core: ^0.5.3
+  firebase_auth: ^0.18.4+1
+  cloud_firestore: ^0.14.4
+
   # UI  
   flutter_native_splash: ^0.2.2 
 

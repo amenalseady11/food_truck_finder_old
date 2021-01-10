@@ -33,6 +33,7 @@ class DbProfilesService {
         uid: doc['uid'] ?? '',
         name: doc['name'] ?? '',
         cuisine: doc['cuisine'] ?? '',
+        description: doc['description'] ?? '',
       );
     }).toList();
   }
