@@ -24,6 +24,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Dataflows
+  provider: ^4.3.2+3
+
   # UI  
   flutter_native_splash: ^0.2.2 
 
