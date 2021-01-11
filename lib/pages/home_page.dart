@@ -41,10 +41,9 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           iconTheme: new IconThemeData(color: skyorangeColor),
-          elevation: 6,
+          elevation: 1,
           centerTitle: true,
-          title: Text('Food Truck Finder',
-              style: TextStyle(color: truckblackColor)),
+          title: Image.asset('assets/FTF_Icon_White.png', height: 60.0,),
         ),
         body: IndexedStack(index: tabIndex, children: listScreens),
         bottomNavigationBar: BottomNavigationBar(
@@ -55,7 +54,7 @@ class _HomePageState extends State<HomePage> {
           //selectedFontSize: 14.0,
           //backgroundColor: ,
           elevation: 5,
-          unselectedIconTheme: IconThemeData(size: 30),
+          unselectedIconTheme: IconThemeData(size: 26),
           selectedIconTheme: IconThemeData(size: 30),
           currentIndex: tabIndex,
           onTap: (int index) {
@@ -73,11 +72,11 @@ class _HomePageState extends State<HomePage> {
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.heart),
+              icon: Icon(Icons.favorite_border),
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.storage),
+              icon: Icon(Icons.person),
               label: '',
             ),
           ],
