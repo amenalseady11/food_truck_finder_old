@@ -25,16 +25,30 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       child: MaterialApp(
         title: 'Food Truck Finder',
-        //theme: ThemeData(
-        //  brightness: Brightness.light,
-        //  //primaryColor: primaryColor,
-        //  //accentColor: accentColor,
-        //  //backgroundColor: backgroundColor,
-        //  visualDensity: VisualDensity.adaptivePlatformDensity,
-        //  buttonTheme: ButtonThemeData(
-        //    minWidth: double.infinity,
-        //  ),
-        //),
+        theme: ThemeData(
+            brightness: Brightness.light,
+            primarySwatch: Colors.grey,
+            primaryColor: Colors.white,
+            // accentColor: accentColor,
+            backgroundColor: Colors.white,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            // buttonTheme: ButtonThemeData(
+            //   minWidth: double.infinity,
+            // ),
+            ),
+        darkTheme: ThemeData(
+            brightness: Brightness.dark,
+            primarySwatch: Colors.grey,
+            primaryColor: Colors.black,
+            // primaryColor: primaryColor,
+            // accentColor: accentColor,
+            backgroundColor: Colors.black,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            //  buttonTheme: ButtonThemeData(
+            //    minWidth: double.infinity,
+            //  ),
+            ),
+            themeMode: ThemeMode.system,
         home: HomePage(),
         routes: <String, WidgetBuilder>{
           '/home': (BuildContext context) => HomePage(),

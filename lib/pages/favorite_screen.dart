@@ -9,7 +9,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-    child: Text('Favorite'),   
+    child: Center(child: Text('Favorite'),), 
     );
   }
 }

@@ -9,7 +9,7 @@ class _ListScreenState extends State<ListScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text('List'),  
+      child: Center(child: Text('List'),),
     );
   }
 }

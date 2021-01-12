@@ -9,7 +9,7 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text('Map'),  
+      child: Center(child: Text('Map'),),  
     );
   }
 }

@@ -39,11 +39,11 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         //extendBodyBehindAppBar: true,
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          //backgroundColor: Colors.red,
           iconTheme: new IconThemeData(color: skyorangeColor),
           elevation: 1,
           centerTitle: true,
-          title: Image.asset('assets/FTF_Icon_White.png', height: 60.0,),
+          title: Image.asset('assets/FTF_Icon_Transp.png', height: 55.0,),
         ),
         body: IndexedStack(index: tabIndex, children: listScreens),
         bottomNavigationBar: BottomNavigationBar(

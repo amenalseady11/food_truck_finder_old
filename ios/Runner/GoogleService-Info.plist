@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1072177397736-mao00f2e79kfco5s61p4hvj2tgenudbb.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1072177397736-mao00f2e79kfco5s61p4hvj2tgenudbb</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCHVVGzsOwTEY3mvV5sBpCYtL1veIKIZbU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1072177397736</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>cz.bluesoftware.foodtruckfinder</string>
+	<key>PROJECT_ID</key>
+	<string>foodtruckfinder-proj</string>
+	<key>STORAGE_BUCKET</key>
+	<string>foodtruckfinder-proj.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1072177397736:ios:8608fc3878e3ac0207ee5d</string>
+</dict>
+</plist>
