@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
           iconTheme: new IconThemeData(color: skyorangeColor),
           elevation: 1,
           centerTitle: true,
-          title: Image.asset('assets/FTF_Icon_Transp.png', height: 55.0,),
+          title: Image.asset('assets/FTF_Icon_Transp.png', height: 45.0,),
         ),
         body: IndexedStack(index: tabIndex, children: listScreens),
         bottomNavigationBar: BottomNavigationBar(
