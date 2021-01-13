@@ -45,5 +45,12 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Your location is required for accurate notifactions benefits for you, also you can disable it without any problem </string>
+	<key>NSLocationAlwaysUsageDescription</key>
+    <string>Your location is required for accurate notifactions benefits for you, also you can disable it without any problem </string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Your location is required for accurate notifaction benefits for you also you can disable it without any problem </string>
+
 </dict>
 </plist>

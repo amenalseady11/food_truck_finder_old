@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'list_screen.dart';
 import 'map_screen.dart';
 import 'favorite_screen.dart';
@@ -41,7 +40,7 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           //backgroundColor: Colors.red,
           iconTheme: new IconThemeData(color: skyorangeColor),
-          elevation: 1,
+          elevation: 3,
           centerTitle: true,
           title: Image.asset('assets/FTF_Icon_Transp.png', height: 45.0,),
         ),

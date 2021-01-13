@@ -14,107 +14,20 @@ class _ListScreenState extends State<ListScreen> {
     final profiles = Provider.of<List<Profile>>(context);
 
     if (profiles != null) {
-      return Column(
-        children: <Widget>[
-          Container(
-            height: 40,
-            child: _showFavoriteTitle(),
-          ),
-          Container(
-            height: 100,
-            child: _showFavoriteListView(profiles),
-          ),
-          Expanded(
-            child: Container(
-              color: Colors.blue,
-              child: _showNearbyListView(),
-            ),
-          )
-        ],
+      return Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: ListView.separated(
+          separatorBuilder: (context, index) =>
+              Divider(color: Colors.black, height: 0),
+          itemCount: profiles.length,
+          itemBuilder: (context, index) {
+            return ProfileTile(profile: profiles[index]);
+          },
+        ),
       );
     }
   }
-
-  Widget _showFavoriteTitle() {
-    return Text(
-      'My Favorite (0)',
-      style: TextStyle(
-        color: Colors.black,
-        fontFamily: 'OpenSans',
-        //fontSize: 16.0,
-        fontWeight: FontWeight.normal,
-      ),
-    );
-  }
-
-  Widget _showFavoriteListView(List<Profile> items) {
-    return ListView.separated(
-      separatorBuilder: (context, index) =>
-          Divider(color: Colors.black, height: 0),
-      itemCount: items.length,
-      itemBuilder: (context, index) {
-        return ProfileTile(profile: items[index]);
-      },
-    );
-  }
-
-  Widget _showNearbyListView() {
-    return Container();
-  }
-
-  //   return Container(
-  //     height: MediaQuery.of(context).size.height,
-  //     width: MediaQuery.of(context).size.width,
-  //     child: Column(
-  //       mainAxisAlignment: MainAxisAlignment.start,
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: <Widget>[
-  //         // Text(
-  //         //   'My Favorite (0)',
-  //         //   style: TextStyle(
-  //         //     color: Colors.black,
-  //         //     fontFamily: 'OpenSans',
-  //         //     //fontSize: 16.0,
-  //         //     fontWeight: FontWeight.normal,
-  //         //   ),
-  //         // ),
-
-  //         // Text(
-  //         //   'Nearby (0)',
-  //         //   style: TextStyle(
-  //         //     color: Colors.black,
-  //         //     fontFamily: 'OpenSans',
-  //         //     //fontSize: 16.0,
-  //         //     fontWeight: FontWeight.normal,
-  //         //   ),
-  //         // ),
-
-  //         // Text(
-  //         //   'Other (0)',
-  //         //   style: TextStyle(
-  //         //     color: Colors.black,
-  //         //     fontFamily: 'OpenSans',
-  //         //     //fontSize: 16.0,
-  //         //     fontWeight: FontWeight.normal,
-  //         //   ),
-  //         // ),
-
-  //         ListView.separated(
-  //            separatorBuilder: (context, index) =>
-  //                Divider(color: Colors.black, height: 0),
-  //            itemCount: profiles.length,
-  //            itemBuilder: (context, index) {
-  //              return ProfileTile(profile: profiles[index]);
-  //            },
-  //          ),
-  //       ],
-  //     ),
-  //   );
-  // } else {
-  //   return Container(
-  //     child: Text('Empty'),
-  //   );
-  // }
 }
 
 class ProfileTile extends StatelessWidget {
@@ -135,19 +48,10 @@ class ProfileTile extends StatelessWidget {
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
       subtitle: Row(children: [
-        // Badge(
-        //   toAnimate: false,
-        //   shape: BadgeShape.square,
-        //   badgeColor: truck.open ? Colors.green : Colors.red,
-        //   badgeContent: truck.open
-        //       ? Text(
-        //           'Open',
-        //           style: TextStyle(color: Colors.white, fontSize: 12),
-        //         )
-        //       : Text('Closed',
-        //           style: TextStyle(color: Colors.white, fontSize: 12)),
-        //   borderRadius: BorderRadius.circular(10),
-        // ),
+        Text(
+          '${profile.cuisine}',
+          style: TextStyle(fontSize: 16),
+        ),
       ]),
       trailing: Icon(Icons.arrow_right),
       onTap: () {
