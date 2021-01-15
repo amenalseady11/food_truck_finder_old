@@ -33,7 +33,8 @@ dependencies:
   cloud_firestore: ^0.14.4
 
   # UI  
-  flutter_native_splash: ^0.2.2 
+  flutter_native_splash: ^0.2.2
+  flutter_svg: ^0.18.0 
 
   # Google Maps for Flutter
   google_maps_flutter: ^1.0.10
@@ -73,6 +74,9 @@ flutter:
     - assets/FTF_Icon_White.png
     - assets/FTF_Icon_Transp.png
     - assets/FTF_Splash.png
+    - assets/undraw_mobile_login.svg
+    - assets/undraw_sign_in.svg
+    - assets/undraw_fast_loading.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

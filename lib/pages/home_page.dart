@@ -58,6 +58,9 @@ class _HomePageState extends State<HomePage> {
           currentIndex: tabIndex,
           onTap: (int index) {
             setState(() {
+
+              
+
               tabIndex = index;
             });
           },

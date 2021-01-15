@@ -24,158 +24,75 @@ class _ProfileScreenState extends State<ProfileScreen> {
     if (user != null) {
       // Profiles screen
       return Container(
-        child: Padding(
-          padding: EdgeInsets.all(30),
-          child: Container(
-            child: Column(
-              children: [
-                //_buildLogoutBtn(),
-              ],
-            ),
-          ),
+        padding: EdgeInsets.all(30),
+        child: Column(
+          children: [
+            _buildLogoutBtn(),
+          ],
         ),
       );
     } else {
       // Login/Register screen
       return Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.all(30),
         child: DefaultTabController(
           length: 2, // length of tabs
-          initialIndex: 0,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Container(
-                child: TabBar(
-                  labelColor: primaryColor,
-                  unselectedLabelColor: Colors.black,
-                  automaticIndicatorColorAdjustment: true,
-                  indicatorColor: primaryColor,
-                  tabs: [
-                    Tab(
-                      child: Text(
-                        'Login',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Tab(
-                      child: Text(
-                        'Register',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                //height: double.infinity, //height of TabBarView
-                decoration: BoxDecoration(
-                  border: Border(
-                    top: BorderSide(color: Colors.grey, width: 0.5),
+          initialIndex: 0,          
+          child: Column(children: <Widget>[
+            TabBar(
+              labelColor: primaryColor,
+              indicatorColor: primaryColor,
+              unselectedLabelColor: Colors.black,
+              tabs: [
+                Tab(
+                  child: Text(
+                    'Login',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
-                child: TabBarView(
-                  children: <Widget>[
-                    // --- LOGIN part ---
-                    Column(
-                      children: <Widget>[
-                        //_buildEmailTF(),
-                        //_buildPasswordTF(),
-                        //_buildLoginBtn(),
-                      ],
-                    ),
-                    // --- REGISTER part ---
-                    Column(
-                      children: <Widget>[
-                        //_buildEmailTF(),
-                        //_buildPasswordTF(),
-                        //_buildRegisterBtn(),
-                      ],
-                    ),
-                  ],
+                Tab(
+                  child: Text(
+                    'Register',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
                 ),
-              )
-            ],
-          ),
+              ],
+            ),
+            Expanded(
+              child: TabBarView(
+                children: <Widget>[
+                  // --- LOGIN part ---
+                  Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(height: 30),
+                        _buildEmailTF(),
+                        _buildPasswordTF(),
+                        _buildLoginBtn(),
+                      ],
+                    ),
+                  ),
+                  // --- REGISTER part ---
+                  Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(height: 30),
+                        _buildEmailTF(),
+                        _buildPasswordTF(),
+                        _buildRegisterBtn(),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ]),
         ),
       );
-
-      // return Padding(
-      //   padding: EdgeInsets.all(30),
-      //   child: DefaultTabController(
-      //     length: 2, // length of tabs
-      //     initialIndex: 0,
-      //     child: Column(
-      //       crossAxisAlignment: CrossAxisAlignment.stretch,
-      //       children: <Widget>[
-      //         Container(
-      //           child: TabBar(
-      //             labelColor: primaryColor,
-      //             unselectedLabelColor: Colors.black,
-      //             automaticIndicatorColorAdjustment: true,
-      //             indicatorColor: primaryColor,
-      //             tabs: [
-      //               Tab(
-      //                 child: Text(
-      //                   'Login',
-      //                   style: TextStyle(
-      //                       fontSize: 18, fontWeight: FontWeight.bold),
-      //                 ),
-      //               ),
-      //               Tab(
-      //                 child: Text(
-      //                   'Register',
-      //                   style: TextStyle(
-      //                       fontSize: 18, fontWeight: FontWeight.bold),
-      //                 ),
-      //               ),
-      //             ],
-      //           ),
-      //         ),
-      //         Container(
-      //           //height: double.infinity, //height of TabBarView
-      //           decoration: BoxDecoration(
-      //             border: Border(
-      //               top: BorderSide(color: Colors.grey, width: 0.5),
-      //             ),
-      //           ),
-      //           child: TabBarView(
-      //             children: <Widget>[
-      //               // --- LOGIN part ---
-      //               Container(
-      //                 child: Column(
-      //                   crossAxisAlignment: CrossAxisAlignment.center,
-      //                   mainAxisAlignment: MainAxisAlignment.center,
-      //                   children: <Widget>[
-      //                     _buildEmailTF(),
-      //                     _buildPasswordTF(),
-      //                     _buildLoginBtn(),
-      //                   ],
-      //                 ),
-      //               ),
-      //               // --- REGISTER part ---
-      //               Container(
-      //                 child: Column(
-      //                   crossAxisAlignment: CrossAxisAlignment.center,
-      //                   mainAxisAlignment: MainAxisAlignment.center,
-      //                   children: <Widget>[
-      //                     _buildEmailTF(),
-      //                     _buildPasswordTF(),
-      //                     _buildRegisterBtn(),
-      //                   ],
-      //                 ),
-      //               ),
-      //             ],
-      //           ),
-      //         )
-      //       ],
-      //     ),
-      //   ),
-      // );
     }
   }
 
@@ -236,7 +153,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _buildLoginBtn() {
     return Container(
-      margin: EdgeInsets.only(top: 10.0),
+      margin: EdgeInsets.only(top: 20.0),
       padding: EdgeInsets.symmetric(vertical: 10.0),
       width: double.infinity,
       child: RaisedButton(
@@ -275,7 +192,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _buildRegisterBtn() {
     return Container(
-      margin: EdgeInsets.only(top: 5.0),
+      margin: EdgeInsets.only(top: 20.0),
       padding: EdgeInsets.symmetric(vertical: 10.0),
       width: double.infinity,
       child: RaisedButton(
@@ -348,31 +265,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
+
+// ----------------------------------------------------------------------------
+
+  final kHintTextStyle = TextStyle(
+    color: Colors.black,
+    fontFamily: 'OpenSans',
+  );
+
+  final kLabelStyle = TextStyle(
+    color: Colors.black,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'OpenSans',
+  );
+
+  final kBoxDecorationStyle = BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(10.0),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black12,
+        blurRadius: 6.0,
+        offset: Offset(0, 3),
+      ),
+    ],
+  );
+
+// ----------------------------------------------------------------------------
 }
-
-// ----------------------------------------------------------------------------
-
-final kHintTextStyle = TextStyle(
-  color: Colors.black,
-  fontFamily: 'OpenSans',
-);
-
-final kLabelStyle = TextStyle(
-  color: Colors.black,
-  fontWeight: FontWeight.bold,
-  fontFamily: 'OpenSans',
-);
-
-final kBoxDecorationStyle = BoxDecoration(
-  color: Colors.black,
-  borderRadius: BorderRadius.circular(10.0),
-  boxShadow: [
-    BoxShadow(
-      color: Colors.black12,
-      blurRadius: 6.0,
-      offset: Offset(0, 2),
-    ),
-  ],
-);
-
-// ----------------------------------------------------------------------------

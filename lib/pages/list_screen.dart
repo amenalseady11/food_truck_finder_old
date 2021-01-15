@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../models/profile_model.dart';
 
@@ -26,6 +27,17 @@ class _ListScreenState extends State<ListScreen> {
           },
         ),
       );
+    } else {
+      return Container(
+          padding: EdgeInsets.all(30),
+          child: Column(
+            children: [
+              SvgPicture.asset(
+                'assets/undraw_fast_loading.svg',
+                semanticsLabel: 'Loading Image',
+              ),
+            ],
+          ));
     }
   }
 }
