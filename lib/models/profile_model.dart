@@ -6,12 +6,13 @@ class Profile {
   final String name;
   final String cuisine;
   final String description;
+  final String logo;
 
-  Profile({
-    this.id,
-    this.uid,
-    this.name,
-    this.cuisine,
-    this.description,
-  });
+  Profile(
+      {this.id,
+      this.uid,
+      this.name,
+      this.cuisine,
+      this.description,
+      this.logo});
 }

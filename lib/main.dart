@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'pages/home_page.dart';
+import 'pages/detail_page.dart';
 import 'services/auth_service.dart';
 import 'services/db_profiles_service.dart';
 
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
         home: HomePage(),
         routes: <String, WidgetBuilder>{
           '/home': (BuildContext context) => HomePage(),
-          //'/profile': (BuildContext context) => ProfilesScreen(),
+          '/detail': (BuildContext context) => DetailPage(),
         },
       ),
     );

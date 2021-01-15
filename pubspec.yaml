@@ -34,7 +34,8 @@ dependencies:
 
   # UI  
   flutter_native_splash: ^0.2.2
-  flutter_svg: ^0.18.0 
+  flutter_svg: ^0.18.0
+  firebase_image: ^0.3.0 
 
   # Google Maps for Flutter
   google_maps_flutter: ^1.0.10

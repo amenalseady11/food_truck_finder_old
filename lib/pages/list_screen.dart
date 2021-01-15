@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:firebase_image/firebase_image.dart';
 import '../models/profile_model.dart';
 
 class ListScreen extends StatefulWidget {
@@ -53,7 +53,7 @@ class ProfileTile extends StatelessWidget {
       leading: CircleAvatar(
         radius: 30,
         backgroundColor: Color(0xff888888),
-        //backgroundImage: FirebaseImage(truck.logo),
+        backgroundImage: FirebaseImage(profile.logo),
       ),
       title: Text(
         '${profile.name}',
@@ -68,7 +68,7 @@ class ProfileTile extends StatelessWidget {
       trailing: Icon(Icons.arrow_right),
       onTap: () {
         print('CLICK from Profile ID  : ' + profile.id);
-        //Navigator.pushNamed(context, "/detail", arguments: {'truck': truck});
+        Navigator.pushNamed(context, "/detail", arguments: {'profile': profile});
       },
     );
   }

@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
           },
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.list),
+              icon: Icon(Icons.local_shipping),
               label: '',
             ),
             BottomNavigationBarItem(

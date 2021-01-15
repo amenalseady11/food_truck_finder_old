@@ -14,6 +14,7 @@ class DbProfilesService {
     String name,
     String cuisine,
     String description,
+    String logo,
   ) async {
     return await profilesCollection.doc().set(
       {
@@ -21,6 +22,7 @@ class DbProfilesService {
         'name': name,
         'cuisine': cuisine,
         'description': description,
+        'logo': logo,
       },
     );
   }
@@ -34,6 +36,7 @@ class DbProfilesService {
         name: doc['name'] ?? '',
         cuisine: doc['cuisine'] ?? '',
         description: doc['description'] ?? '',
+        logo: doc['logo'] ?? '',
       );
     }).toList();
   }
