@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_image/firebase_image.dart';
 import '../models/profile_model.dart';
+import '../colors.dart';
 
 class ListScreen extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class _ListScreenState extends State<ListScreen> {
         width: MediaQuery.of(context).size.width,
         child: ListView.separated(
           separatorBuilder: (context, index) =>
-              Divider(color: Colors.black, height: 0),
+              Divider(color: truckblackColor, height: 3, indent: 10,),
           itemCount: profiles.length,
           itemBuilder: (context, index) {
             return ProfileTile(profile: profiles[index]);
@@ -50,25 +51,42 @@ class ProfileTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
-      leading: CircleAvatar(
-        radius: 30,
-        backgroundColor: Color(0xff888888),
-        backgroundImage: FirebaseImage(profile.logo),
+      leading: Card(
+        semanticContainer: true,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: Image(
+          image: FirebaseImage(profile.logo),
+          fit: BoxFit.fitHeight,
+          //width: 100,
+          //height: 100,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        elevation: 3,
+        margin: EdgeInsets.all(0),
       ),
       title: Text(
         '${profile.name}',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
       ),
       subtitle: Row(children: [
+        Icon(
+          Icons.local_dining,
+          color: skyorangeColor,
+          size: 18.0,
+        ),
+        SizedBox(width: 5.0,),
         Text(
           '${profile.cuisine}',
-          style: TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 18),
         ),
       ]),
-      trailing: Icon(Icons.arrow_right),
+      trailing: Icon(Icons.keyboard_arrow_right),
       onTap: () {
         print('CLICK from Profile ID  : ' + profile.id);
-        Navigator.pushNamed(context, "/detail", arguments: {'profile': profile});
+        Navigator.pushNamed(context, "/detail",
+            arguments: {'profile': profile});
       },
     );
   }

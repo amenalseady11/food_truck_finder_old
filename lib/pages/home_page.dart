@@ -39,17 +39,26 @@ class _HomePageState extends State<HomePage> {
         //extendBodyBehindAppBar: true,
         appBar: AppBar(
           //backgroundColor: Colors.red,
+          flexibleSpace: Image(
+            image: AssetImage('assets/FTF_Wallpaper2.jpg'),
+            fit: BoxFit.cover,
+            isAntiAlias: true,
+          ),
+          backgroundColor: Colors.transparent,
           iconTheme: new IconThemeData(color: skyorangeColor),
           elevation: 3,
           centerTitle: true,
-          title: Image.asset('assets/FTF_Icon_Transp.png', height: 45.0,),
+          title: Image.asset(
+            'assets/FTF_Icon_Transp.png',
+            height: 45.0,
+          ),
         ),
         body: IndexedStack(index: tabIndex, children: listScreens),
         bottomNavigationBar: BottomNavigationBar(
           showSelectedLabels: false,
           showUnselectedLabels: false,
           selectedItemColor: skyorangeColor,
-          unselectedItemColor: Colors.grey,          
+          unselectedItemColor: Colors.grey,
           //selectedFontSize: 14.0,
           //backgroundColor: ,
           elevation: 5,
@@ -58,15 +67,12 @@ class _HomePageState extends State<HomePage> {
           currentIndex: tabIndex,
           onTap: (int index) {
             setState(() {
-
-              
-
               tabIndex = index;
             });
           },
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.local_shipping),
+              icon: Icon(Icons.format_list_bulleted), // local_shipping
               label: '',
             ),
             BottomNavigationBarItem(

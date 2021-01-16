@@ -75,6 +75,8 @@ flutter:
     - assets/FTF_Icon_White.png
     - assets/FTF_Icon_Transp.png
     - assets/FTF_Splash.png
+    - assets/FTF_Wallpaper.jpg
+    - assets/FTF_Wallpaper2.jpg
     - assets/undraw_mobile_login.svg
     - assets/undraw_sign_in.svg
     - assets/undraw_fast_loading.svg
