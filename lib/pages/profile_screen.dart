@@ -3,6 +3,7 @@ import 'package:food_truck_finder/colors.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import '../models/userlocation_model.dart';
 import '../services/auth_service.dart';
 import '../colors.dart';
 
@@ -20,6 +21,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     // user credentials
     final user = Provider.of<User>(context);
 
+    final userlocation = Provider.of<UserLocation>(context);
+
+    print('GPS:' +
+        userlocation.latitude.toString() +
+        ';' +
+        userlocation.longitude.toString());
+
     // Wrapper
     if (user != null) {
       // Profiles screen
@@ -28,6 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Column(
           children: [
             _buildLogoutBtn(),
+            Text('GPS: ' + userlocation.latitude.toStringAsFixed(6) + '; ' + userlocation.longitude.toStringAsFixed(6)),
           ],
         ),
       );
@@ -37,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         padding: EdgeInsets.all(30),
         child: DefaultTabController(
           length: 2, // length of tabs
-          initialIndex: 0,          
+          initialIndex: 0,
           child: Column(children: <Widget>[
             TabBar(
               labelColor: primaryColor,

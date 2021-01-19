@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,8 +13,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp()
-      //MultiProvider(
-      //  providers: [ChangeNotifierProvider(create: (_) => Gps())],
+      //MultiProvider(,
+      //  //providers: [ChangeNotifierProvider(create: (_) => Gps())],
       //  child: MyApp(),
       //),
       );
@@ -61,3 +62,33 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+// ===== G P S  =====
+
+// class Gps with ChangeNotifier {
+//   Position _position;
+
+//   Position get position => _position;
+
+//   void update() async {
+//     LocationPermission permission = await Geolocator.checkPermission();
+
+//     if (permission == LocationPermission.always ||
+//         permission == LocationPermission.whileInUse) {
+//       _position = await Geolocator.getCurrentPosition(
+//           desiredAccuracy: LocationAccuracy.bestForNavigation);
+//     } else {}
+
+//     StreamSubscription<Position> positionStream =
+//         Geolocator.getPositionStream()
+//             .listen((Position position) {
+//       print(position == null
+//           ? 'Unknown'
+//           : 'GPS is ' + position.latitude.toString() +
+//               ', ' +
+//               position.longitude.toString());
+//     });
+
+//     notifyListeners();
+//   }
+// }

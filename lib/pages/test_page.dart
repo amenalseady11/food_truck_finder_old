@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,8 +15,12 @@ class TestPage extends StatefulWidget {
 }
 
 class _TestPageState extends State<TestPage> {
+  String test = 'TEST: ';
+ 
+
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Image(
@@ -38,6 +44,12 @@ class _TestPageState extends State<TestPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _buildCreateBtn(),
+            Text(
+              '$test',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
           ],
         ),
       ),

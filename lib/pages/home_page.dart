@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:food_truck_finder/models/userlocation_model.dart';
+import 'package:food_truck_finder/services/location_service.dart';
 import 'package:provider/provider.dart';
 import 'list_screen.dart';
 import 'map_screen.dart';
@@ -34,6 +38,9 @@ class _HomePageState extends State<HomePage> {
       providers: [
         StreamProvider<List<FoodTruck>>.value(
             value: DbFoodTrucksService().foodtrucks),
+        StreamProvider<UserLocation>.value(
+          value: LocationService().locationStream,
+        )
       ],
       child: Scaffold(
         //extendBodyBehindAppBar: true,
@@ -51,9 +58,9 @@ class _HomePageState extends State<HomePage> {
           title: Image.asset(
             'assets/FTF_Icon_Transp.png',
             height: 45.0,
-          ),          
+          ),
           leading: IconButton(
-            icon: Icon(Icons.adb),            
+            icon: Icon(Icons.adb),
             tooltip: "Testing",
             onPressed: () {
               Navigator.pushNamed(context, "/test");
