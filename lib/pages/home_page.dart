@@ -4,8 +4,8 @@ import 'list_screen.dart';
 import 'map_screen.dart';
 import 'favorite_screen.dart';
 import 'profile_screen.dart';
-import '../services/db_profiles_service.dart';
-import '../models/profile_model.dart';
+import '../services/db_foodtrucks_service.dart';
+import '../models/foodtruck_model.dart';
 import '../colors.dart';
 
 class HomePage extends StatefulWidget {
@@ -32,8 +32,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        StreamProvider<List<Profile>>.value(
-            value: DbProfilesService().profiles),
+        StreamProvider<List<FoodTruck>>.value(
+            value: DbFoodTrucksService().foodtrucks),
       ],
       child: Scaffold(
         //extendBodyBehindAppBar: true,
@@ -45,12 +45,19 @@ class _HomePageState extends State<HomePage> {
             isAntiAlias: true,
           ),
           backgroundColor: Colors.transparent,
-          iconTheme: new IconThemeData(color: skyorangeColor),
+          iconTheme: new IconThemeData(color: truckblackColor),
           elevation: 3,
           centerTitle: true,
           title: Image.asset(
             'assets/FTF_Icon_Transp.png',
             height: 45.0,
+          ),          
+          leading: IconButton(
+            icon: Icon(Icons.adb),            
+            tooltip: "Testing",
+            onPressed: () {
+              Navigator.pushNamed(context, "/test");
+            },
           ),
         ),
         body: IndexedStack(index: tabIndex, children: listScreens),

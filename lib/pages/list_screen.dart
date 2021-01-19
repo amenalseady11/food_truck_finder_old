@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_image/firebase_image.dart';
-import '../models/profile_model.dart';
+import '../models/foodtruck_model.dart';
 import '../colors.dart';
 
 class ListScreen extends StatefulWidget {
@@ -13,18 +13,18 @@ class ListScreen extends StatefulWidget {
 class _ListScreenState extends State<ListScreen> {
   @override
   Widget build(BuildContext context) {
-    final profiles = Provider.of<List<Profile>>(context);
+    final foodtrucks = Provider.of<List<FoodTruck>>(context);
 
-    if (profiles != null) {
+    if (foodtrucks != null) {
       return Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: ListView.separated(
           separatorBuilder: (context, index) =>
               Divider(color: truckblackColor, height: 3, indent: 10,),
-          itemCount: profiles.length,
+          itemCount: foodtrucks.length,
           itemBuilder: (context, index) {
-            return ProfileTile(profile: profiles[index]);
+            return FoodTruckTile(foodtruck: foodtrucks[index]);
           },
         ),
       );
@@ -43,9 +43,9 @@ class _ListScreenState extends State<ListScreen> {
   }
 }
 
-class ProfileTile extends StatelessWidget {
-  final Profile profile;
-  ProfileTile({this.profile});
+class FoodTruckTile extends StatelessWidget {
+  final FoodTruck foodtruck;
+  FoodTruckTile({this.foodtruck});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class ProfileTile extends StatelessWidget {
         semanticContainer: true,
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: Image(
-          image: FirebaseImage(profile.logo),
+          image: FirebaseImage(foodtruck.imgL),
           fit: BoxFit.fitHeight,
           //width: 100,
           //height: 100,
@@ -67,7 +67,7 @@ class ProfileTile extends StatelessWidget {
         margin: EdgeInsets.all(0),
       ),
       title: Text(
-        '${profile.name}',
+        '${foodtruck.name}',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
       ),
       subtitle: Row(children: [
@@ -78,15 +78,15 @@ class ProfileTile extends StatelessWidget {
         ),
         SizedBox(width: 5.0,),
         Text(
-          '${profile.cuisine}',
+          '${foodtruck.cuisine}',
           style: TextStyle(fontSize: 18),
         ),
       ]),
       trailing: Icon(Icons.keyboard_arrow_right),
       onTap: () {
-        print('CLICK from Profile ID  : ' + profile.id);
+        print('CLICK from Profile ID  : ' + foodtruck.id);
         Navigator.pushNamed(context, "/detail",
-            arguments: {'profile': profile});
+            arguments: {'foodtruck': foodtruck});
       },
     );
   }

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_image/firebase_image.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../colors.dart';
-import '../models/profile_model.dart';
+import '../models/foodtruck_model.dart';
 
 // ----------------------------------------------------------------------------
 
@@ -49,12 +49,12 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    Profile profile;
+    FoodTruck foodtruck;
 
     final Map arguments = ModalRoute.of(context).settings.arguments as Map;
 
     if (arguments != null) {
-      profile = arguments['profile'];
+      foodtruck = arguments['foodtruck'];
     }
 
     return Scaffold(
@@ -96,7 +96,7 @@ class _DetailPageState extends State<DetailPage> {
                   semanticContainer: true,
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   child: Image(
-                    image: FirebaseImage(profile.logo),
+                    image: FirebaseImage(foodtruck.imgL),
                     fit: BoxFit.fitHeight,
                     width: 70,
                     height: 70,
@@ -111,7 +111,7 @@ class _DetailPageState extends State<DetailPage> {
                   width: 15.0,
                 ),
                 Text(
-                  '${profile.name}',
+                  '${foodtruck.name}',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                 )
               ],
@@ -128,7 +128,7 @@ class _DetailPageState extends State<DetailPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               //crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Column 1 = 
+                // Column 1 =
                 Container(
                   child: Column(
                     children: [
@@ -145,7 +145,7 @@ class _DetailPageState extends State<DetailPage> {
                     ],
                   ),
                 ),
-                // Column 2 = 
+                // Column 2 =
                 Container(
                   child: Column(
                     children: [
@@ -162,7 +162,7 @@ class _DetailPageState extends State<DetailPage> {
                     ],
                   ),
                 ),
-                // Column 3 = 
+                // Column 3 =
                 Container(
                   child: Column(
                     children: [
