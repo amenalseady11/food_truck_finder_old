@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_image/firebase_image.dart';
+import '../widgets/mysmalliconlabel_widget.dart';
 import '../models/foodtruck_model.dart';
 import '../colors.dart';
 
@@ -20,8 +21,11 @@ class _ListScreenState extends State<ListScreen> {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: ListView.separated(
-          separatorBuilder: (context, index) =>
-              Divider(color: truckblackColor, height: 3, indent: 10,),
+          separatorBuilder: (context, index) => Divider(
+            color: truckblackColor,
+            height: 3,
+            indent: 10,
+          ),
           itemCount: foodtrucks.length,
           itemBuilder: (context, index) {
             return FoodTruckTile(foodtruck: foodtrucks[index]);
@@ -49,13 +53,17 @@ class FoodTruckTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String imgL = 'gs://foodtruckfinder-proj.appspot.com/' +
+        foodtruck.id.toString() +
+        '_L.jpg';
+
     return ListTile(
       contentPadding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
       leading: Card(
         semanticContainer: true,
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: Image(
-          image: FirebaseImage(foodtruck.imgL),
+          image: FirebaseImage(imgL),
           fit: BoxFit.fitHeight,
           //width: 100,
           //height: 100,
@@ -70,19 +78,11 @@ class FoodTruckTile extends StatelessWidget {
         '${foodtruck.name}',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
       ),
-      subtitle: Row(children: [
-        Icon(
-          Icons.local_dining,
-          color: skyorangeColor,
-          size: 18.0,
-        ),
-        SizedBox(width: 5.0,),
-        Text(
-          '${foodtruck.cuisine}',
-          style: TextStyle(fontSize: 18),
-        ),
-      ]),
-      trailing: Icon(Icons.keyboard_arrow_right),
+      subtitle: MySmallIconLabel(
+        symbol: 'cuisine',
+        label: foodtruck.cuisine,
+      ),
+      //trailing: Icon(Icons.keyboard_arrow_right),
       onTap: () {
         print('CLICK from Profile ID  : ' + foodtruck.id);
         Navigator.pushNamed(context, "/detail",

@@ -4,7 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import '../models/userlocation_model.dart';
+import '../models/foodtruck_model.dart';
 import '../services/auth_service.dart';
+import '../widgets/mytabtitle_widget.dart';
 import '../colors.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -15,32 +17,64 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   TextEditingController txtEmail = TextEditingController();
   TextEditingController txtPassword = TextEditingController();
+  TextEditingController txtPhone = TextEditingController();
+  TextEditingController txtName = TextEditingController();
+  bool isTruckRegistrationSwitched = false;
 
   @override
   Widget build(BuildContext context) {
     // user credentials
     final user = Provider.of<User>(context);
-
     final userlocation = Provider.of<UserLocation>(context);
 
-    print('GPS:' +
-        userlocation.latitude.toString() +
-        ';' +
-        userlocation.longitude.toString());
-
-    // Wrapper
+    // PROFILE
     if (user != null) {
-      // Profiles screen
-      return Container(
-        padding: EdgeInsets.all(30),
-        child: Column(
-          children: [
-            _buildLogoutBtn(),
-            Text('GPS: ' + userlocation.latitude.toStringAsFixed(6) + '; ' + userlocation.longitude.toStringAsFixed(6)),
-          ],
-        ),
-      );
-    } else {
+      // Read foodtrucks list
+      final foodtrucks = Provider.of<List<FoodTruck>>(context);
+      // Try to find matching foodtruck profile
+      final foodtruck =
+          foodtrucks.firstWhere((item) => item.uid == user.uid, orElse: () {
+        return null;
+      });
+
+      // PROFILE VIEW as VENDOR
+      if (foodtruck != null) {
+        // Profiles screen
+        return Container(
+          padding: EdgeInsets.all(30),
+          child: Column(
+            children: [
+              Text('VENDOR PROFILE'),
+
+              _buildLogoutBtn(),
+              Text('GPS: ' +
+                  userlocation.latitude.toStringAsFixed(6) +
+                  '; ' +
+                  userlocation.longitude.toStringAsFixed(6)),
+            ],
+          ),
+        );
+      }
+      // PROFILE VIEW as CUSTOMER
+      else {
+        // Profiles screen
+        return Container(
+          padding: EdgeInsets.all(30),
+          child: Column(
+            children: [
+              Text('CUSTOMER PROFILE'),
+              _buildLogoutBtn(),
+              Text('GPS: ' +
+                  userlocation.latitude.toStringAsFixed(6) +
+                  '; ' +
+                  userlocation.longitude.toStringAsFixed(6)),
+            ],
+          ),
+        );
+      }
+    }
+    // LOGIN/REGISTER
+    else {
       // Login/Register screen
       return Container(
         padding: EdgeInsets.all(30),
@@ -54,16 +88,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               unselectedLabelColor: Colors.black,
               tabs: [
                 Tab(
-                  child: Text(
-                    'Login',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
+                  child: MyTabTitle(title: 'Login'),
                 ),
                 Tab(
-                  child: Text(
-                    'Register',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
+                  child: MyTabTitle(title: 'Register'),
                 ),
               ],
             ),
@@ -72,28 +100,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: <Widget>[
                   // --- LOGIN part ---
                   Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 30),
-                        _buildEmailTF(),
-                        _buildPasswordTF(),
-                        _buildLoginBtn(),
-                      ],
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(height: 30),
+                          _buildEmailTF(),
+                          _buildPasswordTF(),
+                          _buildLoginBtn(),
+                        ],
+                      ),
                     ),
                   ),
                   // --- REGISTER part ---
                   Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 30),
-                        _buildEmailTF(),
-                        _buildPasswordTF(),
-                        _buildRegisterBtn(),
-                      ],
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(height: 30),
+                          _buildEmailTF(),
+                          _buildPasswordTF(),
+                          _buildSwitch(),
+                          if (isTruckRegistrationSwitched) _buildPhoneTF(),
+                          if (isTruckRegistrationSwitched) _buildNameTF(),
+                          _buildRegisterBtn(),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -107,7 +142,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _buildEmailTF() {
     return Container(
-      margin: EdgeInsets.only(top: 10.0),
+      margin: EdgeInsets.only(top: 0.0),
       alignment: Alignment.centerLeft,
       decoration: kBoxDecorationStyle,
       height: 50.0,
@@ -134,7 +169,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _buildPasswordTF() {
     return Container(
-      margin: EdgeInsets.only(top: 20.0),
+      margin: EdgeInsets.only(top: 10.0),
       alignment: Alignment.centerLeft,
       decoration: kBoxDecorationStyle,
       height: 50.0,
@@ -160,9 +195,88 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  Widget _buildPhoneTF() {
+    return Container(
+      margin: EdgeInsets.only(top: 0.0),
+      alignment: Alignment.centerLeft,
+      decoration: kBoxDecorationStyle,
+      height: 50.0,
+      child: TextFormField(
+        controller: txtPhone,
+        keyboardType: TextInputType.phone,
+        style: TextStyle(
+          color: Colors.grey[700],
+          fontFamily: 'OpenSans',
+        ),
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.only(top: 14.0),
+          prefixIcon: Icon(
+            Icons.phone,
+            color: Colors.grey[700],
+          ),
+          hintText: 'Enter your Phone',
+          hintStyle: kHintTextStyle,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNameTF() {
+    return Container(
+      margin: EdgeInsets.only(top: 10.0),
+      alignment: Alignment.centerLeft,
+      decoration: kBoxDecorationStyle,
+      height: 50.0,
+      child: TextFormField(
+        controller: txtName,
+        keyboardType: TextInputType.name,
+        style: TextStyle(
+          color: Colors.grey[700],
+          fontFamily: 'OpenSans',
+        ),
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.only(top: 14.0),
+          prefixIcon: Icon(
+            Icons.person,
+            color: Colors.grey[700],
+          ),
+          hintText: 'Enter your Name',
+          hintStyle: kHintTextStyle,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSwitch() {
+    return Container(
+      margin: EdgeInsets.only(top: 0.0, bottom: 0.0),
+      alignment: Alignment.center,
+
+      //decoration: kBoxDecorationStyle,
+      height: 50.0,
+      child: Row(
+        children: [
+          Switch(
+            value: isTruckRegistrationSwitched,
+            onChanged: (value) {
+              setState(() {
+                isTruckRegistrationSwitched = value;
+              });
+            },
+            activeTrackColor: skyorangeColor,
+            //activeColor: skyorangeColor,
+          ),
+          Text('Register as Food Truck Vendor'),
+        ],
+      ),
+    );
+  }
+
   Widget _buildLoginBtn() {
     return Container(
-      margin: EdgeInsets.only(top: 20.0),
+      margin: EdgeInsets.only(top: 10.0),
       padding: EdgeInsets.symmetric(vertical: 10.0),
       width: double.infinity,
       child: RaisedButton(
@@ -201,7 +315,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _buildRegisterBtn() {
     return Container(
-      margin: EdgeInsets.only(top: 20.0),
+      margin: EdgeInsets.only(top: 10.0),
       padding: EdgeInsets.symmetric(vertical: 10.0),
       width: double.infinity,
       child: RaisedButton(
@@ -210,7 +324,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           try {
             final AuthService _auth = AuthService();
             dynamic rc = await _auth.registerWithEmailAndPassword(
-                txtEmail.text, txtPassword.text);
+                txtEmail.text, txtPassword.text, txtPhone.text, txtName.text);
             //ackAlert(context);
           } on FirebaseAuthException catch (e) {
             //errAlert(context, 'Warning', e.message);

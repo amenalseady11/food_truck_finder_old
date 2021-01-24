@@ -13,7 +13,7 @@ class DbFoodTrucksService {
   Future createFoodTruck(
     String name,
   ) async {
-    return await foodtrucksCollection.doc().set(
+    return await foodtrucksCollection.doc(uid).set(
       {
         'uid': uid,
         'name': name,

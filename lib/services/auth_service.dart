@@ -30,17 +30,14 @@ class AuthService {
 
   // register with email & password
   Future registerWithEmailAndPassword(
-      String email, String password) async {
+      String email, String password, String phone, String name) async {
     try {
       // create user in firebase
       UserCredential result = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      User user = result.user;
-      // create user profile data
-      //if (user != null) {
-      //  final DbProfilesService _con = DbProfilesService(uid: user.uid);
-      //  await _con.createProfile(email, name, phone);
-      //}
+        email: email,
+        password: password,
+      );
+      User user = result.user;      
       return user;
     } catch (e) {
       print(e.toString());

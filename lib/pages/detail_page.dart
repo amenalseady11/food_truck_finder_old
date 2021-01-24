@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_image/firebase_image.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import '../colors.dart';
 import '../models/foodtruck_model.dart';
+import '../widgets/mysmalliconlabel_widget.dart';
 
 // ----------------------------------------------------------------------------
 
@@ -57,6 +59,21 @@ class _DetailPageState extends State<DetailPage> {
       foodtruck = arguments['foodtruck'];
     }
 
+    final String _imgL = 'gs://foodtruckfinder-proj.appspot.com/' +
+        foodtruck.id.toString() +
+        '_L.jpg';
+    final String _imgA = 'gs://foodtruckfinder-proj.appspot.com/' +
+        foodtruck.id.toString() +
+        '_A.jpg';
+    final String _imgB = 'gs://foodtruckfinder-proj.appspot.com/' +
+        foodtruck.id.toString() +
+        '_B.jpg';
+    final String _imgC = 'gs://foodtruckfinder-proj.appspot.com/' +
+        foodtruck.id.toString() +
+        '_C.jpg';
+
+    final List<String> imgList = [_imgA, _imgB, _imgC];
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -96,7 +113,7 @@ class _DetailPageState extends State<DetailPage> {
                   semanticContainer: true,
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   child: Image(
-                    image: FirebaseImage(foodtruck.imgL),
+                    image: FirebaseImage(_imgL),
                     fit: BoxFit.fitHeight,
                     width: 70,
                     height: 70,
@@ -110,11 +127,46 @@ class _DetailPageState extends State<DetailPage> {
                 SizedBox(
                   width: 15.0,
                 ),
-                Text(
-                  '${foodtruck.name}',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-                )
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${foodtruck.name}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                    MySmallIconLabel(
+                      symbol: 'cuisine',
+                      label: foodtruck.cuisine,
+                    )
+                  ],
+                ),
               ],
+            ),
+          ),
+          // Divider -----
+          Divider(
+            height: 3,
+          ),
+          // Images Carousel
+          Container(
+            padding: EdgeInsets.all(20),
+            child: CarouselSlider(
+              options: CarouselOptions(enlargeCenterPage: true),
+              items: imgList
+                  .map(
+                    (item) => Container(
+                      child: Image(
+                        image: FirebaseImage(item),
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                      ),
+                    ),
+                  )
+                  .toList(),
             ),
           ),
           // Divider -----
@@ -182,10 +234,7 @@ class _DetailPageState extends State<DetailPage> {
               ],
             ),
           ),
-          // Divider -----
-          Divider(
-            height: 3,
-          ),
+          
         ],
       ),
     );
