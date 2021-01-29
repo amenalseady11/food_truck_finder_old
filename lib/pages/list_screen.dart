@@ -58,7 +58,7 @@ class FoodTruckTile extends StatelessWidget {
         '_L.jpg';
 
     return ListTile(
-      contentPadding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+      contentPadding: EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 0),
       leading: Card(
         semanticContainer: true,
         clipBehavior: Clip.antiAliasWithSaveLayer,

@@ -104,7 +104,7 @@ class _DetailPageState extends State<DetailPage> {
           ),
           // Title -----
           Container(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,7 +153,7 @@ class _DetailPageState extends State<DetailPage> {
           ),
           // Images Carousel
           Container(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(10),
             child: CarouselSlider(
               options: CarouselOptions(enlargeCenterPage: true),
               items: imgList
@@ -174,66 +174,66 @@ class _DetailPageState extends State<DetailPage> {
             height: 3,
           ),
           // Symbols------
-          Container(
-            padding: EdgeInsets.all(20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // Column 1 =
-                Container(
-                  child: Column(
-                    children: [
-                      Icon(
-                        Icons.near_me_outlined,
-                        color: truckblackColor,
-                        size: 36.0,
-                      ),
-                      Text(
-                        'Directions',
-                        style: TextStyle(
-                            fontWeight: FontWeight.normal, fontSize: 16),
-                      ),
-                    ],
-                  ),
-                ),
-                // Column 2 =
-                Container(
-                  child: Column(
-                    children: [
-                      Icon(
-                        Icons.public,
-                        color: truckblackColor,
-                        size: 36.0,
-                      ),
-                      Text(
-                        'Facebook',
-                        style: TextStyle(
-                            fontWeight: FontWeight.normal, fontSize: 16),
-                      ),
-                    ],
-                  ),
-                ),
-                // Column 3 =
-                Container(
-                  child: Column(
-                    children: [
-                      Icon(
-                        Icons.favorite_outline,
-                        color: truckblackColor,
-                        size: 36.0,
-                      ),
-                      Text(
-                        'Favorite',
-                        style: TextStyle(
-                            fontWeight: FontWeight.normal, fontSize: 16),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // Container(
+          //   padding: EdgeInsets.all(10),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     //crossAxisAlignment: CrossAxisAlignment.stretch,
+          //     children: [
+          //       // Column 1 =
+          //       Container(
+          //         child: Column(
+          //           children: [
+          //             Icon(
+          //               Icons.near_me_outlined,
+          //               color: truckblackColor,
+          //               size: 30.0,
+          //             ),
+          //             Text(
+          //               'Directions',
+          //               style: TextStyle(
+          //                   fontWeight: FontWeight.normal, fontSize: 12),
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //       // Column 2 =
+          //       Container(
+          //         child: Column(
+          //           children: [
+          //             Icon(
+          //               Icons.public,
+          //               color: truckblackColor,
+          //               size: 30.0,
+          //             ),
+          //             Text(
+          //               'Facebook',
+          //               style: TextStyle(
+          //                   fontWeight: FontWeight.normal, fontSize: 12),
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //       // Column 3 =
+          //       Container(
+          //         child: Column(
+          //           children: [
+          //             Icon(
+          //               Icons.favorite_outline,
+          //               color: truckblackColor,
+          //               size: 30.0,
+          //             ),
+          //             Text(
+          //               'Favorite',
+          //               style: TextStyle(
+          //                   fontWeight: FontWeight.normal, fontSize: 12),
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           
         ],
       ),

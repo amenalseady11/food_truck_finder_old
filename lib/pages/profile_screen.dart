@@ -17,8 +17,10 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   TextEditingController txtEmail = TextEditingController();
   TextEditingController txtPassword = TextEditingController();
-  TextEditingController txtPhone = TextEditingController();
   TextEditingController txtName = TextEditingController();
+  TextEditingController txtCuisine = TextEditingController();
+  TextEditingController txtDescription = TextEditingController();
+  TextEditingController txtPhone = TextEditingController();
   bool isTruckRegistrationSwitched = false;
 
   @override
@@ -31,27 +33,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
     if (user != null) {
       // Read foodtrucks list
       final foodtrucks = Provider.of<List<FoodTruck>>(context);
+
       // Try to find matching foodtruck profile
-      final foodtruck =
-          foodtrucks.firstWhere((item) => item.uid == user.uid, orElse: () {
-        return null;
-      });
+      FoodTruck foodtruck = null;
+      if (foodtrucks != null) {
+        foodtruck =
+            foodtrucks.firstWhere((item) => item.uid == user.uid, orElse: () {
+          return null;
+        });
+      }
 
       // PROFILE VIEW as VENDOR
       if (foodtruck != null) {
         // Profiles screen
         return Container(
           padding: EdgeInsets.all(30),
-          child: Column(
-            children: [
-              Text('VENDOR PROFILE'),
-
-              _buildLogoutBtn(),
-              Text('GPS: ' +
-                  userlocation.latitude.toStringAsFixed(6) +
-                  '; ' +
-                  userlocation.longitude.toStringAsFixed(6)),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                _buildVendorProfileLB(),
+                _buildEmailTF(),
+                _buildNameTF(),
+                _buildCuisineTF(),
+                _buildDescriptionTF(),
+                _buildPhoneTF(),
+                _buildUpdateBtn(),
+                _buildCleanLocationBtn(),
+                _buildLogoutBtn(),
+                Text('VENDOR PROFILE'),
+                Text('GPS: ' +
+                    userlocation.latitude.toStringAsFixed(6) +
+                    '; ' +
+                    userlocation.longitude.toStringAsFixed(6)),
+              ],
+            ),
           ),
         );
       }
@@ -140,6 +155,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+  // /////////////////////////////////////////////////////////////////////////
+
+  Widget _buildVendorProfileLB() {
+    return Container(
+      margin: EdgeInsets.only(top: 0.0, bottom: 20.0),
+      child: Text(
+        'Vendor Profile',
+        style: TextStyle(
+          color: truckblackColor,
+          letterSpacing: 1.5,
+          fontSize: 20.0,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'OpenSans',
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCustomerProfileLB() {
+    return Container(
+      margin: EdgeInsets.only(top: 0.0, bottom: 20.0),
+      child: Text(
+        'Customer Profile',
+        style: TextStyle(
+          color: truckblackColor,
+          letterSpacing: 1.5,
+          fontSize: 20.0,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'OpenSans',
+        ),
+      ),
+    );
+  }
+
   Widget _buildEmailTF() {
     return Container(
       margin: EdgeInsets.only(top: 0.0),
@@ -197,7 +246,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _buildPhoneTF() {
     return Container(
-      margin: EdgeInsets.only(top: 0.0),
+      margin: EdgeInsets.only(top: 10.0),
       alignment: Alignment.centerLeft,
       decoration: kBoxDecorationStyle,
       height: 50.0,
@@ -215,7 +264,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Icons.phone,
             color: Colors.grey[700],
           ),
-          hintText: 'Enter your Phone',
+          hintText: 'Enter phone number',
           hintStyle: kHintTextStyle,
         ),
       ),
@@ -239,10 +288,66 @@ class _ProfileScreenState extends State<ProfileScreen> {
           border: InputBorder.none,
           contentPadding: EdgeInsets.only(top: 14.0),
           prefixIcon: Icon(
-            Icons.person,
+            Icons.local_shipping,
             color: Colors.grey[700],
           ),
-          hintText: 'Enter your Name',
+          hintText: 'Enter foodtruck name',
+          hintStyle: kHintTextStyle,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCuisineTF() {
+    return Container(
+      margin: EdgeInsets.only(top: 10.0),
+      alignment: Alignment.centerLeft,
+      decoration: kBoxDecorationStyle,
+      height: 50.0,
+      child: TextFormField(
+        controller: txtCuisine,
+        keyboardType: TextInputType.name,
+        style: TextStyle(
+          color: Colors.grey[700],
+          fontFamily: 'OpenSans',
+        ),
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.only(top: 14.0),
+          prefixIcon: Icon(
+            Icons.local_dining,
+            color: Colors.grey[700],
+          ),
+          hintText: 'Enter foodtruck cuisine style',
+          hintStyle: kHintTextStyle,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDescriptionTF() {
+    return Container(
+      margin: EdgeInsets.only(top: 10.0),
+      alignment: Alignment.centerLeft,
+      decoration: kBoxDecorationStyle,
+      //height: 50.0,
+      child: TextFormField(
+        controller: txtDescription,
+        keyboardType: TextInputType.multiline,
+        minLines: 1, //Normal textInputField will be displayed
+        maxLines: 15, // when user presses enter it will adapt to it        
+        style: TextStyle(
+          color: Colors.grey[700],
+          fontFamily: 'OpenSans',
+        ),
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.only(top: 14.0),
+          prefixIcon: Icon(
+            Icons.description,
+            color: Colors.grey[700],
+          ),
+          hintText: 'Enter foodtruck description',
           hintStyle: kHintTextStyle,
         ),
       ),
@@ -377,6 +482,82 @@ class _ProfileScreenState extends State<ProfileScreen> {
         color: primaryColor,
         child: Text(
           'Log Out',
+          style: TextStyle(
+            color: Colors.white,
+            letterSpacing: 1.5,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'OpenSans',
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildUpdateBtn() {
+    return Container(
+      margin: EdgeInsets.only(top: 10.0),
+      padding: EdgeInsets.symmetric(vertical: 10.0),
+      width: double.infinity,
+      child: RaisedButton(
+        elevation: 5.0,
+        onPressed: () async {
+          try {
+            final AuthService _auth = AuthService();
+            await _auth.signOut();
+            //ackAlert(context);
+          } on FirebaseAuthException catch (e) {
+            //errAlert(context, 'Warning', e.message);
+          } catch (e) {
+            //errAlert(context, 'Error', e.toString());
+          }
+        },
+        padding: EdgeInsets.all(15.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        //color: Theme.of(context).primaryColor,
+        color: primaryColor,
+        child: Text(
+          'Save Changes',
+          style: TextStyle(
+            color: Colors.white,
+            letterSpacing: 1.5,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'OpenSans',
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCleanLocationBtn() {
+    return Container(
+      margin: EdgeInsets.only(top: 10.0),
+      padding: EdgeInsets.symmetric(vertical: 10.0),
+      width: double.infinity,
+      child: RaisedButton(
+        elevation: 5.0,
+        onPressed: () async {
+          try {
+            final AuthService _auth = AuthService();
+            await _auth.signOut();
+            //ackAlert(context);
+          } on FirebaseAuthException catch (e) {
+            //errAlert(context, 'Warning', e.message);
+          } catch (e) {
+            //errAlert(context, 'Error', e.toString());
+          }
+        },
+        padding: EdgeInsets.all(15.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        //color: Theme.of(context).primaryColor,
+        color: primaryColor,
+        child: Text(
+          'Clean Location',
           style: TextStyle(
             color: Colors.white,
             letterSpacing: 1.5,
