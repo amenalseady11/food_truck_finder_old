@@ -37,6 +37,13 @@ class MyApp extends StatelessWidget {
           // buttonTheme: ButtonThemeData(
           //   minWidth: double.infinity,
           // ),
+          // cardTheme: CardTheme(
+          //   shape: RoundedRectangleBorder(
+          //     borderRadius: const BorderRadius.all(
+          //       Radius.circular(20.0),
+          //     ),
+          //   ),
+          // ),
         ),
         darkTheme: ThemeData(
           brightness: Brightness.dark,

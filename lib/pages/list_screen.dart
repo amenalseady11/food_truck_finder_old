@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'dart:core';
+import 'dart:math';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_image/firebase_image.dart';
 import '../widgets/mysmalliconlabel_widget.dart';
+import '../models/userlocation_model.dart';
 import '../models/foodtruck_model.dart';
 import '../colors.dart';
 
@@ -15,16 +18,41 @@ class _ListScreenState extends State<ListScreen> {
   @override
   Widget build(BuildContext context) {
     final foodtrucks = Provider.of<List<FoodTruck>>(context);
+    final userlocation = Provider.of<UserLocation>(context);
 
     if (foodtrucks != null) {
+      foodtrucks.forEach(
+        (item) {
+          if (userlocation != null) {
+            double latitudeDif =
+                (item.latitude - userlocation.latitude) * 111.32;
+            double longitudeDif = (item.longitude - userlocation.longitude) *
+                40075 *
+                cos(item.latitude) /
+                360;
+            latitudeDif = latitudeDif.abs();
+            longitudeDif = longitudeDif.abs();
+            item.distance = sqrt(
+                (latitudeDif * latitudeDif) + (longitudeDif * longitudeDif));
+          } else {
+            item.distance = 0;
+          }
+        },
+      );
+
+      foodtrucks.sort((a, b) => a.distance.compareTo(b.distance));
+
       return Container(
+        color: Colors.white,
+        padding: EdgeInsets.only(left: 0, right: 0, top: 10, bottom: 0),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: ListView.separated(
           separatorBuilder: (context, index) => Divider(
-            color: truckblackColor,
+            color: Colors.grey[200],
             height: 3,
-            indent: 10,
+            indent: 20,
+            endIndent: 20,
           ),
           itemCount: foodtrucks.length,
           itemBuilder: (context, index) {
@@ -58,7 +86,8 @@ class FoodTruckTile extends StatelessWidget {
         '_L.jpg';
 
     return ListTile(
-      contentPadding: EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 0),
+      contentPadding: EdgeInsets.only(left: 15, right: 15, top: 0, bottom: 0),
+      tileColor: Colors.white,
       leading: Card(
         semanticContainer: true,
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -69,7 +98,7 @@ class FoodTruckTile extends StatelessWidget {
           //height: 100,
         ),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
+          borderRadius: BorderRadius.circular(10.0),
         ),
         elevation: 3,
         margin: EdgeInsets.all(0),
@@ -78,11 +107,22 @@ class FoodTruckTile extends StatelessWidget {
         '${foodtruck.name}',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
       ),
-      subtitle: MySmallIconLabel(
-        symbol: 'cuisine',
-        label: foodtruck.cuisine,
-      ),
-      //trailing: Icon(Icons.keyboard_arrow_right),
+      subtitle: Row(
+        children: [
+          MySmallIconLabel(
+            symbol: 'cuisine',
+            label: foodtruck.cuisine,
+          ),
+          SizedBox(
+            width: 3.0,
+          ),
+          MySmallIconLabel(
+            symbol: 'place',
+            label: foodtruck.distance.toStringAsFixed(1) + ' km',
+            open: foodtruck.status,
+          ),
+        ],
+      ), //trailing: Icon(Icons.keyboard_arrow_right),
       onTap: () {
         print('CLICK from Profile ID  : ' + foodtruck.id);
         Navigator.pushNamed(context, "/detail",

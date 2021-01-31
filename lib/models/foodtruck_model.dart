@@ -14,7 +14,7 @@ class FoodTruck {
   final bool status;
   final double latitude; // GPS
   final double longitude; // GPS
-  final double distance;
+        double distance;
   final Timestamp localized;
   final Timestamp created; // UTC time
   final Timestamp updated; // UTC time

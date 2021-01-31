@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:firebase_image/firebase_image.dart';
 import 'package:flutter/material.dart';
 import 'package:food_truck_finder/models/userlocation_model.dart';
 import 'package:food_truck_finder/services/location_service.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'list_screen.dart';
 import 'map_screen.dart';
 import 'favorite_screen.dart';
@@ -11,6 +13,13 @@ import 'profile_screen.dart';
 import '../services/db_foodtrucks_service.dart';
 import '../models/foodtruck_model.dart';
 import '../colors.dart';
+
+class ListItem {
+  int value;
+  String name;
+
+  ListItem(this.value, this.name);
+}
 
 class HomePage extends StatefulWidget {
   @override
@@ -21,6 +30,16 @@ class _HomePageState extends State<HomePage> {
   int tabIndex = 0;
   List<Widget> listScreens;
 
+  List<ListItem> _dropdownItems = [
+    ListItem(1, "First Value"),
+    ListItem(2, "Second Item"),
+    ListItem(3, "Third Item"),
+    ListItem(4, "Fourth Item")
+  ];
+
+  List<DropdownMenuItem<ListItem>> _dropdownMenuItems;
+  ListItem _selectedItem;
+
   @override
   void initState() {
     listScreens = [
@@ -30,6 +49,8 @@ class _HomePageState extends State<HomePage> {
       ProfileScreen(),
     ];
     super.initState();
+    _dropdownMenuItems = buildDropDownMenuItems(_dropdownItems);
+    _selectedItem = _dropdownMenuItems[0].value;
   }
 
   @override
@@ -45,27 +66,37 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         //extendBodyBehindAppBar: true,
         appBar: AppBar(
-          //backgroundColor: Colors.red,
-          flexibleSpace: Image(
-            image: AssetImage('assets/FTF_Wallpaper2.jpg'),
-            fit: BoxFit.cover,
-            isAntiAlias: true,
-          ),
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.grey[100],
+          // flexibleSpace: Image(
+          //   image: AssetImage('assets/FTF_Wallpaper2.jpg'),
+          //   fit: BoxFit.cover,
+          //   isAntiAlias: true,
+          // ),
           iconTheme: new IconThemeData(color: truckblackColor),
-          elevation: 3,
+          elevation: 5,
           centerTitle: true,
           title: Image.asset(
             'assets/FTF_Icon_Transp.png',
-            height: 45.0,
+            height: 40.0,
           ),
+
           leading: IconButton(
-            icon: Icon(Icons.adb),
-            tooltip: "Testing",
+            icon: Icon(Icons.tune),
+            tooltip: "Setup Filter",
             onPressed: () {
               Navigator.pushNamed(context, "/test");
             },
           ),
+
+          actions: [
+            IconButton(
+              icon: Icon(Icons.info),
+              tooltip: "Setup Filter",
+              onPressed: () {
+                Navigator.pushNamed(context, "/test");
+              },
+            ),
+          ],
         ),
         body: IndexedStack(index: tabIndex, children: listScreens),
         bottomNavigationBar: BottomNavigationBar(
@@ -75,7 +106,7 @@ class _HomePageState extends State<HomePage> {
           unselectedItemColor: Colors.grey,
           //selectedFontSize: 14.0,
           //backgroundColor: ,
-          elevation: 5,
+          elevation: 0,
           unselectedIconTheme: IconThemeData(size: 26),
           selectedIconTheme: IconThemeData(size: 30),
           currentIndex: tabIndex,
@@ -105,5 +136,18 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
+    List<DropdownMenuItem<ListItem>> items = List();
+    for (ListItem listItem in listItems) {
+      items.add(
+        DropdownMenuItem(
+          child: Text(listItem.name),
+          value: listItem,
+        ),
+      );
+    }
+    return items;
   }
 }
