@@ -15,9 +15,22 @@ class _MapScreenState extends State<MapScreen> {
 
   List<Marker> markers = <Marker>[];
 
+  BitmapDescriptor pinLocationIconRed;
+  BitmapDescriptor pinLocationIconGreen;
+
+  void setCustomMapPin() async {
+    pinLocationIconRed = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(devicePixelRatio: 2.0),
+        'assets/marker_red_transp.png');
+    pinLocationIconGreen = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(devicePixelRatio: 2.0),
+        'assets/marker_green_transp.png');
+  }
+
   @override
   void initState() {
     super.initState();
+    setCustomMapPin();
   }
 
   @override
@@ -38,9 +51,10 @@ class _MapScreenState extends State<MapScreen> {
               markerId: MarkerId(item.id),
               position: LatLng(item.latitude, item.longitude),
               infoWindow: InfoWindow(title: item.name, snippet: item.cuisine),
-              icon: BitmapDescriptor.defaultMarkerWithHue((item.status)
-                  ? BitmapDescriptor.hueGreen
-                  : BitmapDescriptor.hueRed),
+              icon: (item.status) ? pinLocationIconGreen : pinLocationIconRed,
+              //icon: BitmapDescriptor.defaultMarkerWithHue((item.status)
+              //    ? BitmapDescriptor.hueGreen
+              //    : BitmapDescriptor.hueRed),
               onTap: () {},
             ),
           );

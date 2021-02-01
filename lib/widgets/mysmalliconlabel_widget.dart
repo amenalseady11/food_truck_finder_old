@@ -34,7 +34,7 @@ class MySmallIconLabel extends StatelessWidget {
       return Row(children: [
         Icon(
           Icons.place,
-          color: (open) ? skyorangeColor : Colors.green,
+          color: (open) ? Colors.green : skyorangeColor,
           size: 18.0,
         ),
         SizedBox(
