@@ -66,14 +66,14 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         //extendBodyBehindAppBar: true,
         appBar: AppBar(
-          backgroundColor: Colors.grey[100],
+          backgroundColor: Colors.white, //grey[100],
           // flexibleSpace: Image(
           //   image: AssetImage('assets/FTF_Wallpaper2.jpg'),
           //   fit: BoxFit.cover,
           //   isAntiAlias: true,
           // ),
           iconTheme: new IconThemeData(color: truckblackColor),
-          elevation: 5,
+          elevation: 3,
           centerTitle: true,
           title: Image.asset(
             'assets/FTF_Icon_Transp.png',
@@ -109,6 +109,8 @@ class _HomePageState extends State<HomePage> {
           elevation: 0,
           unselectedIconTheme: IconThemeData(size: 26),
           selectedIconTheme: IconThemeData(size: 30),
+          backgroundColor: Colors.white,
+          type: BottomNavigationBarType.fixed,
           currentIndex: tabIndex,
           onTap: (int index) {
             setState(() {

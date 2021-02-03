@@ -88,6 +88,7 @@ flutter:
     - assets/marker_green_transp.png
     - assets/marker_red.png
     - assets/marker_red_transp.png
+    - assets/map_style.txt
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

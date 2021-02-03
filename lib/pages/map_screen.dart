@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:provider/provider.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../models/userlocation_model.dart';
@@ -12,6 +13,7 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   GoogleMapController mapController;
+  String _mapStyle;
 
   List<Marker> markers = <Marker>[];
 
@@ -31,6 +33,9 @@ class _MapScreenState extends State<MapScreen> {
   void initState() {
     super.initState();
     setCustomMapPin();
+    rootBundle.loadString('assets/map_style.txt').then((string) {
+      _mapStyle = string;
+    });
   }
 
   @override
@@ -77,6 +82,7 @@ class _MapScreenState extends State<MapScreen> {
         initialCameraPosition: myLocation,
         onMapCreated: (GoogleMapController controller) {
           mapController = controller;
+          mapController.setMapStyle(_mapStyle);
         },
         markers: Set<Marker>.of(markers),
       ),
