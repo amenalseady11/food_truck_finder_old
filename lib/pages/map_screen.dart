@@ -32,7 +32,7 @@ class _MapScreenState extends State<MapScreen> {
   @override
   void initState() {
     super.initState();
-    setCustomMapPin();
+    //setCustomMapPin();
     rootBundle.loadString('assets/map_style.txt').then((string) {
       _mapStyle = string;
     });
@@ -55,11 +55,14 @@ class _MapScreenState extends State<MapScreen> {
             Marker(
               markerId: MarkerId(item.id),
               position: LatLng(item.latitude, item.longitude),
-              infoWindow: InfoWindow(title: item.name, snippet: item.cuisine),
-              icon: (item.status) ? pinLocationIconGreen : pinLocationIconRed,
-              //icon: BitmapDescriptor.defaultMarkerWithHue((item.status)
-              //    ? BitmapDescriptor.hueGreen
-              //    : BitmapDescriptor.hueRed),
+              infoWindow: InfoWindow(
+                title: item.name,
+                snippet: item.cuisine,
+              ),
+              //icon: (item.status) ? pinLocationIconGreen : pinLocationIconRed,
+              icon: BitmapDescriptor.defaultMarkerWithHue(
+                  (item.status) ? 80 : 15),
+              //icon: BitmapDescriptor.defaultMarkerWithHue(39.0),
               onTap: () {},
             ),
           );
@@ -79,10 +82,11 @@ class _MapScreenState extends State<MapScreen> {
         rotateGesturesEnabled: false,
         compassEnabled: true,
         buildingsEnabled: true,
+        mapToolbarEnabled: false,
         initialCameraPosition: myLocation,
         onMapCreated: (GoogleMapController controller) {
           mapController = controller;
-          mapController.setMapStyle(_mapStyle);
+          //mapController.setMapStyle(_mapStyle);
         },
         markers: Set<Marker>.of(markers),
       ),

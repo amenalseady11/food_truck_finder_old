@@ -19,7 +19,7 @@ class MySmallIconLabel extends StatelessWidget {
         Icon(
           Icons.local_dining,
           color: skyorangeColor,
-          size: 18.0,
+          size: 16.0,
         ),
         SizedBox(
           width: 3.0,
@@ -33,9 +33,9 @@ class MySmallIconLabel extends StatelessWidget {
     if (symbol == 'place') {
       return Row(children: [
         Icon(
-          Icons.place,
-          color: (open) ? Colors.green : skyorangeColor,
-          size: 18.0,
+          Icons.near_me, // near_me, place
+          color: skyorangeColor,
+          size: 16.0,
         ),
         SizedBox(
           width: 3.0,

@@ -15,14 +15,10 @@ class DbFoodTrucksService {
   ) async {
     return await foodtrucksCollection.doc(uid).set(
       {
-        'uid': uid,
         'name': name,
         'cuisine': '',
         'description': '',
-        'imgL': '',
-        'imgA': '',
-        'imgB': '',
-        'imgC': '',
+        'phone': '',
         'status': false,
         'latitude': 0.0,
         'longitude': 0.0,
@@ -38,6 +34,7 @@ class DbFoodTrucksService {
     String name,
     String cuisine,
     String description,
+    String phone,
   ) async {
     return await foodtrucksCollection.doc().set(
       {
@@ -45,8 +42,28 @@ class DbFoodTrucksService {
         'name': name,
         'cuisine': cuisine,
         'description': description,
+        'phone': phone,
       },
     );
+  }
+
+  Future<FoodTruck> readFoodTruck() async {
+    final doc = await foodtrucksCollection.doc(uid).get();
+    if (doc.exists) {
+      return FoodTruck(
+        id: doc.id,
+        name: doc['name'] ?? '',
+        cuisine: doc['cuisine'] ?? '',
+        description: doc['description'] ?? '',
+        phone: doc['phone'] ?? '',
+        status: doc['status'] ?? false,
+        latitude: (doc['latitude'] as num).toDouble() ?? (0 as double),
+        longitude: (doc['longitude'] as num).toDouble() ?? (0 as double),
+        localized: doc['localized'] ?? Timestamp(0, 0),
+        created: doc['created'] ?? Timestamp(0, 0),
+        updated: doc['updated'] ?? Timestamp(0, 0),
+      );
+    }
   }
 
   // trucks list from snapshot
@@ -54,14 +71,10 @@ class DbFoodTrucksService {
     return snapshot.docs.map((doc) {
       return FoodTruck(
         id: doc.id,
-        uid: doc['uid'] ?? '',
         name: doc['name'] ?? '',
         cuisine: doc['cuisine'] ?? '',
         description: doc['description'] ?? '',
-        imgL: doc['imgL'] ?? '',
-        imgA: doc['imgA'] ?? '',
-        imgB: doc['imgB'] ?? '',
-        imgC: doc['imgC'] ?? '',
+        phone: doc.data()['phone'] ?? '',
         status: doc['status'] ?? false,
         latitude: (doc['latitude'] as num).toDouble() ?? (0 as double),
         longitude: (doc['longitude'] as num).toDouble() ?? (0 as double),

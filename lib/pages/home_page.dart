@@ -30,27 +30,13 @@ class _HomePageState extends State<HomePage> {
   int tabIndex = 0;
   List<Widget> listScreens;
 
-  List<ListItem> _dropdownItems = [
-    ListItem(1, "First Value"),
-    ListItem(2, "Second Item"),
-    ListItem(3, "Third Item"),
-    ListItem(4, "Fourth Item")
-  ];
-
-  List<DropdownMenuItem<ListItem>> _dropdownMenuItems;
-  ListItem _selectedItem;
-
   @override
   void initState() {
     listScreens = [
-      ListScreen(),
       MapScreen(),
-      FavoriteScreen(),
-      ProfileScreen(),
+      ListScreen(),
     ];
     super.initState();
-    _dropdownMenuItems = buildDropDownMenuItems(_dropdownItems);
-    _selectedItem = _dropdownMenuItems[0].value;
   }
 
   @override
@@ -67,48 +53,54 @@ class _HomePageState extends State<HomePage> {
         //extendBodyBehindAppBar: true,
         appBar: AppBar(
           backgroundColor: Colors.white, //grey[100],
-          // flexibleSpace: Image(
-          //   image: AssetImage('assets/FTF_Wallpaper2.jpg'),
-          //   fit: BoxFit.cover,
-          //   isAntiAlias: true,
-          // ),
           iconTheme: new IconThemeData(color: truckblackColor),
-          elevation: 3,
+          elevation: 1,
           centerTitle: true,
-          title: Image.asset(
-            'assets/FTF_Icon_Transp.png',
-            height: 40.0,
+          toolbarHeight: 60, //75,
+          leadingWidth: 70,
+          leading: Container(
+            padding: EdgeInsets.only(left: 20, right: 0, top: 0, bottom: 0),
+            child: Image.asset(
+              'assets/FTF_Icon_Transp.png',
+              height: 40.0,
+            ),
           ),
 
-          leading: IconButton(
-            icon: Icon(Icons.tune),
-            tooltip: "Setup Filter",
-            onPressed: () {
-              Navigator.pushNamed(context, "/test");
-            },
+          title: Column(
+            children: [
+              //Image.asset(
+              //  'assets/FTF_Icon_Transp.png',
+              //  height: 38.0,
+              //),
+              Text(
+                '0 open now',
+                style: TextStyle(
+                  color: truckblackColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+            ],
           ),
-
           actions: [
             IconButton(
-              icon: Icon(Icons.info),
-              tooltip: "Setup Filter",
+              icon: Icon(Icons.info_outline),
+              tooltip: "Info",
               onPressed: () {
-                Navigator.pushNamed(context, "/test");
+                Navigator.pushNamed(context, "/info");
               },
             ),
           ],
         ),
         body: IndexedStack(index: tabIndex, children: listScreens),
         bottomNavigationBar: BottomNavigationBar(
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
           selectedItemColor: skyorangeColor,
-          unselectedItemColor: Colors.grey,
-          //selectedFontSize: 14.0,
-          //backgroundColor: ,
-          elevation: 0,
-          unselectedIconTheme: IconThemeData(size: 26),
-          selectedIconTheme: IconThemeData(size: 30),
+          unselectedItemColor: truckblackColor,
+          elevation: 3,
+          unselectedIconTheme: IconThemeData(size: 22),
+          selectedIconTheme: IconThemeData(size: 28),
           backgroundColor: Colors.white,
           type: BottomNavigationBarType.fixed,
           currentIndex: tabIndex,
@@ -119,20 +111,12 @@ class _HomePageState extends State<HomePage> {
           },
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.format_list_bulleted), // local_shipping
-              label: '',
-            ),
-            BottomNavigationBarItem(
               icon: Icon(Icons.map),
-              label: '',
+              label: 'Map',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_border),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: '',
+              icon: Icon(Icons.menu),
+              label: 'List',
             ),
           ],
         ),

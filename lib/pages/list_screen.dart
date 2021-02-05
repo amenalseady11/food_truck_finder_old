@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_image/firebase_image.dart';
 import '../widgets/mysmalliconlabel_widget.dart';
+import '../widgets/mysmalliconlabel_open_widget.dart';
+import '../widgets/mysmalliconlabel_closed_widget.dart';
 import '../models/userlocation_model.dart';
 import '../models/foodtruck_model.dart';
 import '../colors.dart';
@@ -44,15 +46,15 @@ class _ListScreenState extends State<ListScreen> {
 
       return Container(
         color: Colors.white,
-        padding: EdgeInsets.only(left: 0, right: 0, top: 10, bottom: 0),
+        padding: EdgeInsets.only(left: 0, right: 0, top: 5, bottom: 0),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: ListView.separated(
           separatorBuilder: (context, index) => Divider(
-            color: Colors.grey[200],
+            color: Colors.grey[300],
             height: 3,
-            indent: 20,
-            endIndent: 20,
+            indent: 0,
+            endIndent: 0,
           ),
           itemCount: foodtrucks.length,
           itemBuilder: (context, index) {
@@ -103,26 +105,43 @@ class FoodTruckTile extends StatelessWidget {
         elevation: 3,
         margin: EdgeInsets.all(0),
       ),
-      title: Text(
-        '${foodtruck.name}',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-      ),
-      subtitle: Row(
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          MySmallIconLabel(
-            symbol: 'cuisine',
-            label: foodtruck.cuisine,
+          Text(
+            '${foodtruck.name}',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+          Text(
+            '${foodtruck.cuisine}',
+            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 15),
           ),
           SizedBox(
-            width: 3.0,
+            height: 3.0,
           ),
+        ],
+      ),
+      subtitle: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          (foodtruck.status)
+              ? MySmallIconLabelOpen(
+                  label: 'Open until 18:00',
+                )
+              : MySmallIconLabelClosed(
+                  label: 'Closed',
+                ),
           MySmallIconLabel(
             symbol: 'place',
             label: foodtruck.distance.toStringAsFixed(1) + ' km',
             open: foodtruck.status,
           ),
         ],
-      ), //trailing: Icon(Icons.keyboard_arrow_right),
+      ),
+
+      //trailing: Icon(Icons.keyboard_arrow_right),
       onTap: () {
         print('CLICK from Profile ID  : ' + foodtruck.id);
         Navigator.pushNamed(context, "/detail",

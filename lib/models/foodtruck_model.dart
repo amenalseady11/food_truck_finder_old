@@ -7,6 +7,7 @@ class FoodTruck {
   final String name;
   final String cuisine;
   final String description;
+  final String phone;
   final String imgL; // logo
   final String imgA;
   final String imgB;
@@ -25,6 +26,7 @@ class FoodTruck {
       this.name,
       this.cuisine,
       this.description,
+      this.phone,
       this.imgL,
       this.imgA,
       this.imgB,

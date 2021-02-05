@@ -4,7 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'pages/home_page.dart';
 import 'pages/detail_page.dart';
-import 'pages/test_page.dart';
+import 'pages/info_page.dart';
+import 'pages/login_page.dart';
+import 'pages/edit_page.dart';
 import 'services/auth_service.dart';
 import 'services/db_foodtrucks_service.dart';
 
@@ -27,6 +29,7 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       child: MaterialApp(
         title: 'Food Truck Finder',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           brightness: Brightness.light,
           primarySwatch: Colors.grey,
@@ -62,7 +65,9 @@ class MyApp extends StatelessWidget {
         routes: <String, WidgetBuilder>{
           '/home': (BuildContext context) => HomePage(),
           '/detail': (BuildContext context) => DetailPage(),
-          '/test': (BuildContext context) => TestPage(),
+          '/info': (BuildContext context) => InfoPage(),
+          '/login': (BuildContext context) => LoginPage(),
+          '/edit': (BuildContext context) => EditPage(),
         },
       ),
     );
