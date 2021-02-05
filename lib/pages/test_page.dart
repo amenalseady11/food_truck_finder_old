@@ -179,9 +179,7 @@ class _TestPageState extends State<TestPage> {
   void _testCreate(BuildContext context) async {
     final user = Provider.of<User>(context, listen: false);
     final DbFoodTrucksService _con = DbFoodTrucksService(uid: user.uid);
-    dynamic result = await _con.createFoodTruck(
-      'Test Foodtruck',
-    );
+    dynamic result = await _con.createFoodTruck();
   }
 
   // =====  H E L P E R S  =====

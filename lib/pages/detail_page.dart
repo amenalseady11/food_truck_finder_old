@@ -69,7 +69,7 @@ class _DetailPageState extends State<DetailPage> {
         position: LatLng(foodtruck.latitude, foodtruck.longitude),
         //infoWindow:
         //    InfoWindow(title: foodtruck.name, snippet: foodtruck.cuisine),
-        icon: BitmapDescriptor.defaultMarkerWithHue((foodtruck.status)
+        icon: BitmapDescriptor.defaultMarkerWithHue((foodtruck.open)
             ? BitmapDescriptor.hueGreen
             : BitmapDescriptor.hueRed),
         onTap: () {},
@@ -165,135 +165,143 @@ class _DetailPageState extends State<DetailPage> {
             Container(
               height: 10,
             ),
+
             // DESCRIPTION -----
-            Container(
-              color: Colors.white,
-              padding:
-                  EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-              alignment: Alignment.centerLeft,
-              child: Text(
-                '${foodtruck.description}',
-                textAlign: TextAlign.justify,
-                style: TextStyle(
-                  color: truckblackColor,
-                  fontWeight: FontWeight.normal,
-                  height: 1.5,
-                  fontSize: 16,
+            if (foodtruck.description.length > 0)
+              Container(
+                color: Colors.white,
+                padding:
+                    EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '${foodtruck.description}',
+                  textAlign: TextAlign.justify,
+                  style: TextStyle(
+                    color: truckblackColor,
+                    fontWeight: FontWeight.normal,
+                    height: 1.5,
+                    fontSize: 16,
+                  ),
                 ),
               ),
-            ),
             Container(
               height: 10,
             ),
+
             // PHONE -----
-            ListTile(
+            if (foodtruck.phone.length > 0)
+              ListTile(
+                  tileColor: Colors.white,
+                  visualDensity: VisualDensity.compact,
+                  title: Text('Phone',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Colors.black)),
+                  subtitle: Text('${foodtruck.phone}',
+                      style: TextStyle(
+                          fontWeight: FontWeight.normal,
+                          fontSize: 15,
+                          color: Colors.black))),
+            Divider(
+                color: lightgreyColor,
+                thickness: 1,
+                height: 0,
+                indent: 10,
+                endIndent: 0),
+
+            // WEBPAGE -----
+            if (foodtruck.webpage.length > 0)
+              ListTile(
                 tileColor: Colors.white,
-                dense: true,
                 visualDensity: VisualDensity.compact,
-                title: Text('Phone',
+                title: Text('Web',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                         color: Colors.black)),
-                subtitle: Text('${foodtruck.phone}',
+                subtitle: Text('${foodtruck.webpage}',
                     style: TextStyle(
                         fontWeight: FontWeight.normal,
                         fontSize: 15,
-                        color: Colors.black))),
+                        color: Colors.black)),
+                trailing: Icon(Icons.navigate_next),
+                onTap: () async {
+                  String url = 'https://' + foodtruck.webpage;
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    throw 'Could not launch $url';
+                  }
+                },
+              ),
+            Divider(
+                color: lightgreyColor,
+                thickness: 1,
+                height: 0,
+                indent: 10,
+                endIndent: 0),
 
+            // FACEBOOK -----
+            if (foodtruck.facebook.length > 0)
+              ListTile(
+                tileColor: Colors.white,
+                visualDensity: VisualDensity.compact,
+                title: Text('Facebook',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Colors.black)),
+                subtitle: Text('${foodtruck.facebook}',
+                    style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: 15,
+                        color: Colors.black)),
+                trailing: Icon(Icons.navigate_next),
+                onTap: () async {
+                  String url = 'https://www.facebook.com/' + foodtruck.facebook;
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    throw 'Could not launch $url';
+                  }
+                },
+              ),
             Divider(
                 color: lightgreyColor,
                 thickness: 1,
                 height: 0,
                 indent: 10,
                 endIndent: 0),
-            // WEBPAGE -----
-            ListTile(
-              tileColor: Colors.white,
-              dense: true,
-              visualDensity: VisualDensity.compact,
-              title: Text('Web',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Colors.black)),
-              subtitle: Text('www.foodtrickfinder.eu',
-                  style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 15,
-                      color: Colors.black)),
-              trailing: Icon(Icons.navigate_next),
-              onTap: () async {
-                const url = 'https://www.foodtruckfinder.eu';
-                if (await canLaunch(url)) {
-                  await launch(url);
-                } else {
-                  throw 'Could not launch $url';
-                }
-              },
-            ),
-            Divider(
-                color: lightgreyColor,
-                thickness: 1,
-                height: 0,
-                indent: 10,
-                endIndent: 0),
-            ListTile(
-              tileColor: Colors.white,
-              dense: true,
-              visualDensity: VisualDensity.compact,
-              title: Text('Facebook',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Colors.black)),
-              subtitle: Text('@foodtruckfinder',
-                  style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 15,
-                      color: Colors.black)),
-              trailing: Icon(Icons.navigate_next),
-              onTap: () async {
-                const url = 'https://www.facebook.com/foodtruckfinder.eu';
-                if (await canLaunch(url)) {
-                  await launch(url);
-                } else {
-                  throw 'Could not launch $url';
-                }
-              },
-            ),
-            Divider(
-                color: lightgreyColor,
-                thickness: 1,
-                height: 0,
-                indent: 10,
-                endIndent: 0),
-            ListTile(
-              tileColor: Colors.white,
-              dense: true,
-              visualDensity: VisualDensity.compact,
-              title: Text('Instagram',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Colors.black)),
-              subtitle: Text('@foodtrickfindereu',
-                  style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 15,
-                      color: Colors.black)),
-              trailing: Icon(Icons.navigate_next),
-              onTap: () async {
-                const url = 'https://www.instagram.com/la_porchetta_foodtruck/';
-                if (await canLaunch(url)) {
-                  await launch(url);
-                } else {
-                  throw 'Could not launch $url';
-                }
-              },
-            ),
+
+            // INSTAGRAM -----
+            if (foodtruck.instagram.length > 0)
+              ListTile(
+                tileColor: Colors.white,
+                visualDensity: VisualDensity.compact,
+                title: Text('Instagram',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Colors.black)),
+                subtitle: Text('${foodtruck.instagram}',
+                    style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: 15,
+                        color: Colors.black)),
+                trailing: Icon(Icons.navigate_next),
+                onTap: () async {
+                  String url =
+                      'https://www.instagram.com/' + foodtruck.instagram;
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    throw 'Could not launch $url';
+                  }
+                },
+              ),
             Container(
-              height: 10,
+              height: 30,
             ),
           ],
         ),

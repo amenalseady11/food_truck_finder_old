@@ -5,10 +5,12 @@ import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_image/firebase_image.dart';
 import '../widgets/mysmalliconlabel_widget.dart';
-import '../widgets/mysmalliconlabel_open_widget.dart';
-import '../widgets/mysmalliconlabel_closed_widget.dart';
+import '../widgets/my_open_widget.dart';
+import '../widgets/my_closed_widget.dart';
+import '../widgets/my_cuisine_widget.dart';
 import '../models/userlocation_model.dart';
 import '../models/foodtruck_model.dart';
+import '../models/total_model.dart';
 import '../colors.dart';
 
 class ListScreen extends StatefulWidget {
@@ -126,17 +128,17 @@ class FoodTruckTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          (foodtruck.status)
-              ? MySmallIconLabelOpen(
-                  label: 'Open until 18:00',
+          (foodtruck.open)
+              ? MyOpen(
+                  label: 'Open',
                 )
-              : MySmallIconLabelClosed(
+              : MyClosed(
                   label: 'Closed',
                 ),
           MySmallIconLabel(
             symbol: 'place',
             label: foodtruck.distance.toStringAsFixed(1) + ' km',
-            open: foodtruck.status,
+            open: foodtruck.open,
           ),
         ],
       ),

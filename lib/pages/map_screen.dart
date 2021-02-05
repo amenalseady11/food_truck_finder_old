@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../models/userlocation_model.dart';
 import '../models/foodtruck_model.dart';
+import '../models/total_model.dart';
 import '../colors.dart';
 
 class MapScreen extends StatefulWidget {
@@ -14,20 +15,19 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   GoogleMapController mapController;
   String _mapStyle;
-
   List<Marker> markers = <Marker>[];
 
-  BitmapDescriptor pinLocationIconRed;
-  BitmapDescriptor pinLocationIconGreen;
+  //BitmapDescriptor pinLocationIconRed;
+  //BitmapDescriptor pinLocationIconGreen;
 
-  void setCustomMapPin() async {
-    pinLocationIconRed = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(devicePixelRatio: 2.0),
-        'assets/marker_red_transp.png');
-    pinLocationIconGreen = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(devicePixelRatio: 2.0),
-        'assets/marker_green_transp.png');
-  }
+  // void setCustomMapPin() async {
+  //   pinLocationIconRed = await BitmapDescriptor.fromAssetImage(
+  //       ImageConfiguration(devicePixelRatio: 2.0),
+  //       'assets/marker_red_transp.png');
+  //   pinLocationIconGreen = await BitmapDescriptor.fromAssetImage(
+  //       ImageConfiguration(devicePixelRatio: 2.0),
+  //       'assets/marker_green_transp.png');
+  // }
 
   @override
   void initState() {
@@ -58,10 +58,15 @@ class _MapScreenState extends State<MapScreen> {
               infoWindow: InfoWindow(
                 title: item.name,
                 snippet: item.cuisine,
+                onTap: () {
+                  print('CLICK from Profile ID  : ' + item.id);
+                  Navigator.pushNamed(context, "/detail",
+                      arguments: {'foodtruck': item});
+                },
               ),
               //icon: (item.status) ? pinLocationIconGreen : pinLocationIconRed,
-              icon: BitmapDescriptor.defaultMarkerWithHue(
-                  (item.status) ? 80 : 15),
+              icon:
+                  BitmapDescriptor.defaultMarkerWithHue((item.open) ? 80 : 15),
               //icon: BitmapDescriptor.defaultMarkerWithHue(39.0),
               onTap: () {},
             ),

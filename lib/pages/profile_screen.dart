@@ -38,7 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       FoodTruck foodtruck = null;
       if (foodtrucks != null) {
         foodtruck =
-            foodtrucks.firstWhere((item) => item.uid == user.uid, orElse: () {
+            foodtrucks.firstWhere((item) => item.id == user.uid, orElse: () {
           return null;
         });
       }

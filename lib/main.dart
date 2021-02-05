@@ -9,16 +9,25 @@ import 'pages/login_page.dart';
 import 'pages/edit_page.dart';
 import 'services/auth_service.dart';
 import 'services/db_foodtrucks_service.dart';
+import 'services/location_service.dart';
+import 'models/userlocation_model.dart';
+import 'models/foodtruck_model.dart';
+import 'models/total_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp()
-      //MultiProvider(,
-      //  //providers: [ChangeNotifierProvider(create: (_) => Gps())],
-      //  child: MyApp(),
-      //),
-      );
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => TotalModel()),
+      StreamProvider<List<FoodTruck>>.value(
+          value: DbFoodTrucksService().foodtrucks),
+      StreamProvider<UserLocation>.value(
+        value: LocationService().locationStream,
+      ),
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

@@ -39,6 +39,7 @@ dependencies:
   firebase_image: ^0.3.0 
   carousel_slider: ^2.3.1
   material_design_icons_flutter: ^4.0.5555
+  badges: ^1.1.6
 
   # Google Maps for Flutter
   google_maps_flutter: ^1.1.1
