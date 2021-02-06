@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../colors.dart';
 
-class MyCuisine extends StatelessWidget {
-  MyCuisine({
+class MyTitle extends StatelessWidget {
+  MyTitle({
     this.label,
   });
 
@@ -11,6 +11,7 @@ class MyCuisine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.center,
       padding: EdgeInsets.only(
         left: 0,
         right: 0,
@@ -19,12 +20,12 @@ class MyCuisine extends StatelessWidget {
       ),
       child: Text(
         label,
-        textAlign: TextAlign.justify,
+        textAlign: TextAlign.center,
         style: TextStyle(
           color: truckblackColor,
-          fontWeight: FontWeight.normal,
+          fontWeight: FontWeight.bold,
           height: 1,
-          fontSize: 15,
+          fontSize: 27,
         ),
       ),
     );
