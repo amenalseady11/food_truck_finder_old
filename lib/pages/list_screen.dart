@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_truck_finder/widgets/my_label_widget.dart';
 import 'dart:core';
 import 'dart:math';
 import 'package:provider/provider.dart';
@@ -7,7 +8,7 @@ import 'package:firebase_image/firebase_image.dart';
 import '../widgets/mysmalliconlabel_widget.dart';
 import '../widgets/my_open_widget.dart';
 import '../widgets/my_closed_widget.dart';
-import '../widgets/my_cuisine_widget.dart';
+import '../widgets/my_page_widget.dart';
 import '../models/userlocation_model.dart';
 import '../models/foodtruck_model.dart';
 import '../models/total_model.dart';
@@ -48,20 +49,29 @@ class _ListScreenState extends State<ListScreen> {
 
       return Container(
         color: Colors.white,
-        padding: EdgeInsets.only(left: 0, right: 0, top: 5, bottom: 0),
+        padding: EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 0),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        child: ListView.separated(
-          separatorBuilder: (context, index) => Divider(
-            color: Colors.grey[300],
-            height: 3,
-            indent: 0,
-            endIndent: 0,
-          ),
-          itemCount: foodtrucks.length,
-          itemBuilder: (context, index) {
-            return FoodTruckTile(foodtruck: foodtrucks[index]);
-          },
+        child: Column(
+          children: [
+            MyPage(
+              label: 'Food Trucks',
+            ),
+            Expanded(
+              child: ListView.separated(
+                separatorBuilder: (context, index) => Divider(
+                  color: Colors.grey[400],
+                  height: 1,
+                  indent: 20,
+                  endIndent: 20,
+                ),
+                itemCount: foodtrucks.length,
+                itemBuilder: (context, index) {
+                  return FoodTruckTile(foodtruck: foodtrucks[index]);
+                },
+              ),
+            ),
+          ],
         ),
       );
     } else {
@@ -90,7 +100,7 @@ class FoodTruckTile extends StatelessWidget {
         '_L.jpg';
 
     return ListTile(
-      contentPadding: EdgeInsets.only(left: 15, right: 15, top: 0, bottom: 0),
+      contentPadding: EdgeInsets.only(left: 20, right: 20, top: 0, bottom: 0),
       tileColor: Colors.white,
       leading: Card(
         semanticContainer: true,
@@ -107,34 +117,30 @@ class FoodTruckTile extends StatelessWidget {
         elevation: 3,
         margin: EdgeInsets.all(0),
       ),
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text(
-            '${foodtruck.name}',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-          ),
-          Text(
-            '${foodtruck.cuisine}',
-            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 15),
-          ),
-          SizedBox(
-            height: 3.0,
-          ),
-        ],
+      title: Padding(
+        padding: EdgeInsets.only(bottom: 5, top: 0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              '${foodtruck.title}',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+            (foodtruck.open)
+                ? MyOpen(label: 'Open')
+                : MyClosed(label: 'Closed'),
+          ],
+        ),
       ),
       subtitle: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          (foodtruck.open)
-              ? MyOpen(
-                  label: 'Open',
-                )
-              : MyClosed(
-                  label: 'Closed',
-                ),
+          MySmallIconLabel(
+            symbol: 'cuisine',
+            label: foodtruck.cuisine,
+          ),
           MySmallIconLabel(
             symbol: 'place',
             label: foodtruck.distance.toStringAsFixed(1) + ' km',

@@ -11,7 +11,7 @@ class MyArticle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.center,
+      alignment: Alignment.centerLeft,
       padding: EdgeInsets.only(
         left: 0,
         right: 0,

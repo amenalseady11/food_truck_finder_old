@@ -4,10 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class FoodTruck {
   final String id; // foodtruck ID
   final String name;
+  final String email;
+  final String phone;
   final String title;
   final String cuisine;
-  final String description;
-  final String phone;
+  final String description;  
   final String webpage;
   final String facebook;
   final String instagram;
@@ -30,10 +31,11 @@ class FoodTruck {
       {
       this.id,
       this.name,
+      this.email,
+      this.phone,
       this.title,
       this.cuisine,
-      this.description,
-      this.phone,
+      this.description,      
       this.webpage,
       this.facebook,
       this.instagram,

@@ -11,14 +11,13 @@ class MyOpen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Badge(
-      toAnimate: true,
-      padding: EdgeInsets.only(left: 3, right: 3, top: 1, bottom: 1),
+    return Badge(      
+      padding: EdgeInsets.only(left: 5, right: 5, top: 2, bottom: 2),
       shape: BadgeShape.square,
-      badgeColor: applegreenColor,
+      badgeColor: skyorangeColor,
       borderRadius: BorderRadius.circular(4),
       badgeContent:
-          Text('OPEN', style: TextStyle(color: Colors.white, fontSize: 12)),
+          Text(label, style: TextStyle(color: Colors.white, fontSize: 13)),      
     );
   }
 }

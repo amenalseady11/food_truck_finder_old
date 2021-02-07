@@ -56,8 +56,8 @@ class _MapScreenState extends State<MapScreen> {
               markerId: MarkerId(item.id),
               position: LatLng(item.latitude, item.longitude),
               infoWindow: InfoWindow(
-                title: item.name,
-                snippet: item.cuisine,
+                title: item.title,
+                snippet: (item.open) ? 'Open' : 'Closed',
                 onTap: () {
                   print('CLICK from Profile ID  : ' + item.id);
                   Navigator.pushNamed(context, "/detail",
@@ -65,9 +65,9 @@ class _MapScreenState extends State<MapScreen> {
                 },
               ),
               //icon: (item.status) ? pinLocationIconGreen : pinLocationIconRed,
-              icon:
-                  BitmapDescriptor.defaultMarkerWithHue((item.open) ? 80 : 15),
-              //icon: BitmapDescriptor.defaultMarkerWithHue(39.0),
+              //icon:
+              //    BitmapDescriptor.defaultMarkerWithHue((item.open) ? 80 : 15),
+              icon: BitmapDescriptor.defaultMarkerWithHue(15),
               onTap: () {},
             ),
           );
@@ -81,7 +81,7 @@ class _MapScreenState extends State<MapScreen> {
       child: GoogleMap(
         mapType: MapType.normal,
         myLocationEnabled: true,
-        myLocationButtonEnabled: false,
+        myLocationButtonEnabled: true,
         zoomControlsEnabled: true,
         zoomGesturesEnabled: true,
         rotateGesturesEnabled: false,

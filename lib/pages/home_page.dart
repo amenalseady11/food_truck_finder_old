@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_truck_finder/models/userlocation_model.dart';
 import 'package:food_truck_finder/services/location_service.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 import 'list_screen.dart';
 import 'map_screen.dart';
@@ -23,11 +24,81 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int tabIndex = 0;
-  List<Widget> listScreens;
+  List<Widget> listAppBars;
+  List<Widget> listBodies;
 
   @override
   void initState() {
-    listScreens = [
+    // Define AppBards
+    listAppBars = [
+      // (index = 0) MAP page
+      AppBar(
+        backgroundColor: Colors.white,
+        iconTheme: new IconThemeData(color: truckblackColor),
+        elevation: 0,
+        centerTitle: true,
+        toolbarHeight: 65, //75,
+        leadingWidth: 80,
+        leading: Container(
+          padding: EdgeInsets.only(left: 20, right: 0, top: 0, bottom: 0),
+          child: Image.asset('assets/FTF_Icon_Transp.png', height: 60.0),
+        ),
+        title: Consumer<TotalModel>(
+          builder: (context, total, child) {
+            return Text('${total.total} open now',
+                style: TextStyle(
+                    color: truckblackColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18));
+          },
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(MdiIcons.account),
+            tooltip: "Profile",
+            onPressed: () {
+              Navigator.pushNamed(context, "/profile");
+            },
+          ),
+        ],
+      ),
+      // (index = 1) LIST page
+      AppBar(
+        backgroundColor: Colors.white,
+        iconTheme: new IconThemeData(color: truckblackColor),
+        elevation: 0,
+        centerTitle: true,
+        toolbarHeight: 65, //75,
+        leadingWidth: 80,
+        leading: Container(
+          padding: EdgeInsets.only(
+            left: 20,
+            right: 0,
+            top: 0,
+            bottom: 0,
+          ),
+          child: Image.asset(
+            'assets/FTF_Icon_Transp.png',
+            height: 60.0,
+          ),
+        ),
+
+        // actions: [
+        //   IconButton(
+        //     icon: Icon(
+        //       MdiIcons.swapVertical,
+        //       color: skyorangeColor,
+        //     ),
+        //     tooltip: "Filter",
+        //     onPressed: () {
+        //       Navigator.pushNamed(context, "/filter");
+        //     },
+        //   ),
+        // ],
+      ),
+    ];
+    // Defince Bodies
+    listBodies = [
       MapScreen(),
       ListScreen(),
     ];
@@ -51,62 +122,19 @@ class _HomePageState extends State<HomePage> {
     }
 
     return Scaffold(
-      //extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.white, //grey[100],
-        iconTheme: new IconThemeData(color: truckblackColor),
-        elevation: 1,
-        centerTitle: true,
-        toolbarHeight: 60, //75,
-        leadingWidth: 70,
-        leading: Container(
-          padding: EdgeInsets.only(left: 20, right: 0, top: 0, bottom: 0),
-          child: Image.asset(
-            'assets/FTF_Icon_Transp.png',
-            height: 40.0,
-          ),
-        ),
-
-        title: Column(
-          children: [
-            //Image.asset(
-            //  'assets/FTF_Icon_Transp.png',
-            //  height: 38.0,
-            //),
-            Consumer<TotalModel>(
-              builder: (context, total, child) {
-                return Text(
-                  '${total.total} open now',
-                  style: TextStyle(
-                    color: truckblackColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.info_outline),
-            tooltip: "Info",
-            onPressed: () {
-              Navigator.pushNamed(context, "/info");
-            },
-          ),
-        ],
-      ),
-      body: IndexedStack(index: tabIndex, children: listScreens),
+      appBar: listAppBars[tabIndex],
+      body: IndexedStack(index: tabIndex, children: listBodies),
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: true,
         showUnselectedLabels: true,
         selectedItemColor: skyorangeColor,
         unselectedItemColor: truckblackColor,
         elevation: 3,
-        unselectedIconTheme: IconThemeData(size: 22),
+        unselectedIconTheme: IconThemeData(size: 26),
         selectedIconTheme: IconThemeData(size: 28),
         backgroundColor: Colors.white,
+        selectedFontSize: 10.0,
+        unselectedFontSize: 10.0,
         type: BottomNavigationBarType.fixed,
         currentIndex: tabIndex,
         onTap: (int index) {

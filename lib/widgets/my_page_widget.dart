@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../colors.dart';
 
-class MyLabel extends StatelessWidget {
-  MyLabel({
+class MyPage extends StatelessWidget {
+  MyPage({
     this.label,
   });
 
@@ -13,7 +13,9 @@ class MyLabel extends StatelessWidget {
     return Container(
       alignment: Alignment.centerLeft,
       padding: EdgeInsets.only(
-        top: 30,
+        left: 20,
+        right: 20,
+        top: 10,
         bottom: 15,
       ),
       child: Text(
@@ -23,7 +25,7 @@ class MyLabel extends StatelessWidget {
           color: truckblackColor,
           fontWeight: FontWeight.bold,
           height: 1,
-          fontSize: 22,
+          fontSize: 28,
         ),
       ),
     );

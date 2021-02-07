@@ -171,12 +171,12 @@ class _DetailPageState extends State<DetailPage> {
                   myLocationButtonEnabled: false,
                   rotateGesturesEnabled: false,
                   buildingsEnabled: true,
-                  mapToolbarEnabled: false,
-                  zoomControlsEnabled: false,
+                  mapToolbarEnabled: true,
+                  zoomControlsEnabled: true,
                   initialCameraPosition: myLocation,
                   onMapCreated: (GoogleMapController controller) {
                     mapController = controller;
-                    mapController.setMapStyle(_mapStyle);
+                    //mapController.setMapStyle(_mapStyle);
                   },
                   markers: Set<Marker>.of(markers),
                 ),

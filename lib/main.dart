@@ -6,7 +6,7 @@ import 'pages/home_page.dart';
 import 'pages/detail_page.dart';
 import 'pages/info_page.dart';
 import 'pages/login_page.dart';
-import 'pages/edit_page.dart';
+import 'pages/profile_page.dart';
 import 'services/auth_service.dart';
 import 'services/db_foodtrucks_service.dart';
 import 'services/location_service.dart';
@@ -74,41 +74,11 @@ class MyApp extends StatelessWidget {
         routes: <String, WidgetBuilder>{
           '/home': (BuildContext context) => HomePage(),
           '/detail': (BuildContext context) => DetailPage(),
+          '/profile': (BuildContext context) => ProfilePage(),
           '/info': (BuildContext context) => InfoPage(),
           '/login': (BuildContext context) => LoginPage(),
-          '/edit': (BuildContext context) => EditPage(),
         },
       ),
     );
   }
 }
-
-// ===== G P S  =====
-
-// class Gps with ChangeNotifier {
-//   Position _position;
-
-//   Position get position => _position;
-
-//   void update() async {
-//     LocationPermission permission = await Geolocator.checkPermission();
-
-//     if (permission == LocationPermission.always ||
-//         permission == LocationPermission.whileInUse) {
-//       _position = await Geolocator.getCurrentPosition(
-//           desiredAccuracy: LocationAccuracy.bestForNavigation);
-//     } else {}
-
-//     StreamSubscription<Position> positionStream =
-//         Geolocator.getPositionStream()
-//             .listen((Position position) {
-//       print(position == null
-//           ? 'Unknown'
-//           : 'GPS is ' + position.latitude.toString() +
-//               ', ' +
-//               position.longitude.toString());
-//     });
-
-//     notifyListeners();
-//   }
-// }

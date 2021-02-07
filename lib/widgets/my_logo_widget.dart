@@ -11,19 +11,20 @@ class MyLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
-      ),
+    return Card(
+      semanticContainer: true,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Image(
         image: FirebaseImage(path),
         fit: BoxFit.fitHeight,
-        width: 100,
-        height: 100,
+        width: 80,
+        height: 80,
       ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      elevation: 0,
+      margin: EdgeInsets.only(bottom: 20),
     );
   }
 }
