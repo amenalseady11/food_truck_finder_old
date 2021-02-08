@@ -145,74 +145,92 @@ class _DetailPageState extends State<DetailPage> {
               // --- IMAGES ---
               MyImages(list: imgList),
               // --- DESCRIPTION ---
-              MyLabel(label: 'Description'),
-              MyArticle(text: foodtruck.description),
+              if (foodtruck.description.length > 0)
+                MyLabel(label: 'Description'),
+              if (foodtruck.description.length > 0)
+                MyArticle(text: foodtruck.description),
               // --- LOCATION ---
-              MyLabel(label: 'Location'),
-              Container(
-                height: 200,
-                //width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius:
-                      BorderRadius.circular(10), //border corner radius
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5), //color of shadow
-                      blurRadius: 2, // blur radius
-                      offset: Offset(0, 1), // changes position of shadow
-                    ),
-                    //you can set more BoxShadow() here
-                  ],
+              if (foodtruck.latitude != 0 || foodtruck.longitude != 0)
+                MyLabel(label: 'Location'),
+              if (foodtruck.latitude != 0 || foodtruck.longitude != 0)
+                Container(
+                  height: 200,
+                  //width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                        BorderRadius.circular(10), //border corner radius
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5), //color of shadow
+                        blurRadius: 2, // blur radius
+                        offset: Offset(0, 1), // changes position of shadow
+                      ),
+                      //you can set more BoxShadow() here
+                    ],
+                  ),
+                  child: GoogleMap(
+                    mapType: MapType.normal,
+                    myLocationEnabled: true,
+                    myLocationButtonEnabled: false,
+                    rotateGesturesEnabled: false,
+                    buildingsEnabled: true,
+                    mapToolbarEnabled: true,
+                    zoomControlsEnabled: true,
+                    initialCameraPosition: myLocation,
+                    onMapCreated: (GoogleMapController controller) {
+                      mapController = controller;
+                      //mapController.setMapStyle(_mapStyle);
+                    },
+                    markers: Set<Marker>.of(markers),
+                  ),
                 ),
-                child: GoogleMap(
-                  mapType: MapType.normal,
-                  myLocationEnabled: true,
-                  myLocationButtonEnabled: false,
-                  rotateGesturesEnabled: false,
-                  buildingsEnabled: true,
-                  mapToolbarEnabled: true,
-                  zoomControlsEnabled: true,
-                  initialCameraPosition: myLocation,
-                  onMapCreated: (GoogleMapController controller) {
-                    mapController = controller;
-                    //mapController.setMapStyle(_mapStyle);
-                  },
-                  markers: Set<Marker>.of(markers),
-                ),
-              ),
 
               // --- CONTACT ---
-              MyLabel(label: 'Contact'),
-              Container(
-                alignment: Alignment.topLeft,
-                padding: EdgeInsets.only(
-                  left: 20.0,
-                  right: 20.0,
-                  top: 20.0,
-                  bottom: 10.0,
+              if (foodtruck.phone.length > 0 ||
+                  foodtruck.webpage.length > 0 ||
+                  foodtruck.facebook.length > 0 ||
+                  foodtruck.instagram.length > 0)
+                MyLabel(label: 'Contact'),
+
+              if (foodtruck.phone.length > 0 ||
+                  foodtruck.webpage.length > 0 ||
+                  foodtruck.facebook.length > 0 ||
+                  foodtruck.instagram.length > 0)
+                Container(
+                  alignment: Alignment.topLeft,
+                  padding: EdgeInsets.only(
+                    left: 20.0,
+                    right: 20.0,
+                    top: 20.0,
+                    bottom: 10.0,
+                  ),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                        BorderRadius.circular(10), //border corner radius
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5), //color of shadow
+                        blurRadius: 2, // blur radius
+                        offset: Offset(0, 1), // changes position of shadow
+                      ),
+                      //you can set more BoxShadow() here
+                    ],
+                  ),
+                  child: Column(children: [
+                    if (foodtruck.phone.length > 0)
+                      MyFormItem(symbol: 'phone', text: foodtruck.phone),
+                    if (foodtruck.webpage.length > 0)
+                      MyFormItem(symbol: 'webpage', text: foodtruck.webpage),
+                    if (foodtruck.facebook.length > 0)
+                      MyFormItem(symbol: 'facebook', text: foodtruck.facebook),
+                    if (foodtruck.instagram.length > 0)
+                      MyFormItem(
+                          symbol: 'instagram', text: foodtruck.instagram),
+                  ]),
                 ),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius:
-                      BorderRadius.circular(10), //border corner radius
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5), //color of shadow
-                      blurRadius: 2, // blur radius
-                      offset: Offset(0, 1), // changes position of shadow
-                    ),
-                    //you can set more BoxShadow() here
-                  ],
-                ),
-                child: Column(children: [
-                  MyFormItem(symbol: 'phone', text: foodtruck.phone),
-                  MyFormItem(symbol: 'webpage', text: foodtruck.webpage),
-                  MyFormItem(symbol: 'facebook', text: foodtruck.facebook),
-                  MyFormItem(symbol: 'instagram', text: foodtruck.instagram),
-                ]),
-              ),
 
               // onTap: () async {
               //       String url =

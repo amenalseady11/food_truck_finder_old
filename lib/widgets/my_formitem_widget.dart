@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../colors.dart';
 
 class MyFormItem extends StatelessWidget {
@@ -61,6 +62,14 @@ class MyFormItem extends StatelessWidget {
               //size: 38.0,
             ),
           ),
+          onTap: () async {
+            String url = 'https://' + text;
+            if (await canLaunch(url)) {
+              await launch(url);
+            } else {
+              throw 'Could not launch $url';
+            }
+          },
         ),
       );
     } else if (symbol == 'instagram') {
@@ -86,6 +95,14 @@ class MyFormItem extends StatelessWidget {
               //size: 38.0,
             ),
           ),
+          onTap: () async {
+            String url = 'https://www.instagram.com/' + text;
+            if (await canLaunch(url)) {
+              await launch(url);
+            } else {
+              throw 'Could not launch $url';
+            }
+          },
         ),
       );
     } else if (symbol == 'facebook') {
@@ -111,6 +128,14 @@ class MyFormItem extends StatelessWidget {
               //size: 38.0,
             ),
           ),
+          onTap: () async {
+            String url = 'https://www.facebook.com/' + text;
+            if (await canLaunch(url)) {
+              await launch(url);
+            } else {
+              throw 'Could not launch $url';
+            }
+          },
         ),
       );
     } else {
