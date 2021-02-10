@@ -173,15 +173,14 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     ),
                     tooltip: "Logo from gallery",
                     onPressed: () async {
-                      final pickedFile =
-                          await picker.getImage(source: ImageSource.camera);
-                      setState(() {
-                        if (pickedFile != null) {
-                          _imgFileL = File(pickedFile.path);
-                        } else {
-                          print('No image selected.');
-                        }
-                      });
+                      PickedFile pickedFile = await ImagePicker().getImage(
+                        source: ImageSource.gallery,
+                        maxWidth: 800,
+                        maxHeight: 800,
+                      );
+                      if (pickedFile != null) {
+                        File imageFile = File(pickedFile.path);
+                      }
 
                       //Navigator.pushNamed(context, "/logo_gallery");
                     },
@@ -193,8 +192,17 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                       color: skyorangeColor,
                     ),
                     tooltip: "Logo from camera",
-                    onPressed: () {
-                      Navigator.pushNamed(context, "/logo_gallery");
+                    onPressed: () async {
+                      PickedFile pickedFile = await ImagePicker().getImage(
+                        source: ImageSource.camera,
+                        maxWidth: 800,
+                        maxHeight: 800,
+                      );
+                      if (pickedFile != null) {
+                        File imageFile = File(pickedFile.path);
+                      }
+
+                      //Navigator.pushNamed(context, "/logo_gallery");
                     },
                   ),
                 ],
