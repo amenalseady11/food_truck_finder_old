@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../colors.dart';
 
 class MyAbout extends StatelessWidget {
@@ -81,25 +82,54 @@ class MyAbout extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Icon(
-                MdiIcons.apple,
-                color: truckblackColor,
-                size: 35.0,
+              //Icon(
+              //  MdiIcons.apple,
+              //  color: truckblackColor,
+              //  size: 35.0,
+              //),
+              //Icon(
+              //  MdiIcons.googlePlay,
+              //  color: truckblackColor,
+              //  size: 35.0,
+              //),
+              IconButton(
+                icon: Icon(
+                  MdiIcons.web,
+                  color: truckblackColor,
+                  size: 35.0,
+                ),
+                onPressed: () async {
+                  String url = 'https://www.foodtruckfinder.eu';
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  }
+                },
               ),
-              Icon(
-                MdiIcons.googlePlay,
-                color: truckblackColor,
-                size: 35.0,
+              IconButton(
+                icon: Icon(
+                  MdiIcons.facebook,
+                  color: truckblackColor,
+                  size: 35.0,
+                ),
+                onPressed: () async {
+                  String url = 'https://www.facebook.com/foodtruckfinder.eu';
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  }
+                },
               ),
-              Icon(
-                MdiIcons.facebook,
-                color: truckblackColor,
-                size: 35.0,
-              ),
-              Icon(
-                MdiIcons.instagram,
-                color: truckblackColor,
-                size: 35.0,
+              IconButton(
+                icon: Icon(
+                  MdiIcons.instagram,
+                  color: truckblackColor,
+                  size: 35.0,
+                ),
+                onPressed: () async {
+                  String url = 'https://www.instagram.com/foodtruckfinder.eu/';
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  }
+                },
               ),
             ],
           ),

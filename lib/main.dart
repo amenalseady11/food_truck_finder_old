@@ -4,9 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'pages/home_page.dart';
 import 'pages/detail_page.dart';
-import 'pages/info_page.dart';
-import 'pages/login_page.dart';
-import 'pages/profile_page.dart';
+import 'pages/profile/profile_page.dart';
+import 'pages/profile/profile_edit_page.dart';
 import 'services/auth_service.dart';
 import 'services/db_foodtrucks_service.dart';
 import 'services/location_service.dart';
@@ -75,8 +74,7 @@ class MyApp extends StatelessWidget {
           '/home': (BuildContext context) => HomePage(),
           '/detail': (BuildContext context) => DetailPage(),
           '/profile': (BuildContext context) => ProfilePage(),
-          '/info': (BuildContext context) => InfoPage(),
-          '/login': (BuildContext context) => LoginPage(),
+          '/profile_edit': (BuildContext context) => ProfileEditPage(),
         },
       ),
     );

@@ -2,22 +2,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:food_truck_finder/services/auth_service.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_image/firebase_image.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import '../colors.dart';
-import '../models/foodtruck_model.dart';
+import '../../colors.dart';
+import '../../models/foodtruck_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../widgets/my_title_widget.dart';
-import '../widgets/my_cuisine_widget.dart';
-import '../widgets/my_logo_widget.dart';
-import '../widgets/my_label_widget.dart';
-import '../widgets/my_images_widget.dart';
-import '../widgets/my_article_widget.dart';
-import '../widgets/my_formitem_widget.dart';
-import '../widgets/my_about_widget.dart';
+import '../../widgets/my_title_widget.dart';
+import '../../widgets/my_cuisine_widget.dart';
+import '../../widgets/my_logo_widget.dart';
+import '../../widgets/my_label_widget.dart';
+import '../../widgets/my_images_widget.dart';
+import '../../widgets/my_article_widget.dart';
+import '../../widgets/my_formitem_widget.dart';
+import '../../widgets/my_about_widget.dart';
 
 // ----------------------------------------------------------------------------
 
@@ -109,6 +110,13 @@ class _ProfilePageState extends State<ProfilePage> {
           backgroundColor: Colors.white, //grey[100],
           iconTheme: new IconThemeData(color: skyorangeColor),
           elevation: 0,
+          actions: [IconButton(
+            icon: Icon(Icons.edit),
+            tooltip: "Edit",
+            onPressed: () {
+              Navigator.pushNamed(context, "/profile_edit");
+            },
+          ),],
         ),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(

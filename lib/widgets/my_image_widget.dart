@@ -2,8 +2,8 @@ import 'package:firebase_image/firebase_image.dart';
 import 'package:flutter/material.dart';
 import '../colors.dart';
 
-class MyLogo extends StatelessWidget {
-  MyLogo({
+class MyImage extends StatelessWidget {
+  MyImage({
     this.path,
   });
 
@@ -17,13 +17,13 @@ class MyLogo extends StatelessWidget {
       child: Image(
         image: FirebaseImage(path),
         fit: BoxFit.fitHeight,
-        width: 80,
-        height: 80,
+        //width: 80,
+        height: 150,
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
-      elevation: 0,
+      elevation: 1,
       //margin: EdgeInsets.only(bottom: 20),
     );
   }
