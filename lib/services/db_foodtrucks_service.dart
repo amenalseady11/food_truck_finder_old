@@ -59,29 +59,73 @@ class DbFoodTrucksService {
     );
   }
 
+  Future updateImgL(
+    String img,
+  ) async {
+    return await foodtrucksCollection.doc(uid).update(
+      {
+        'imgL': img,
+      },
+    );
+  }
+
+  Future updateImgA(
+    String img,
+  ) async {
+    return await foodtrucksCollection.doc(uid).update(
+      {
+        'imgA': img,
+      },
+    );
+  }
+
+  Future updateImgB(
+    String img,
+  ) async {
+    return await foodtrucksCollection.doc(uid).update(
+      {
+        'imgB': img,
+      },
+    );
+  }
+
+  Future updateImgC(
+    String img,
+  ) async {
+    return await foodtrucksCollection.doc(uid).update(
+      {
+        'imgC': img,
+      },
+    );
+  }
+
   Future<FoodTruck> readFoodTruck() async {
     final doc = await foodtrucksCollection.doc(uid).get();
     if (doc.exists) {
       return FoodTruck(
         id: doc.id,
-        name: doc['name'] ?? '',
-        email: doc['email'] ?? '',
-        phone: doc['phone'] ?? '',
-        title: doc['title'] ?? '',
-        cuisine: doc['cuisine'] ?? '',
-        description: doc['description'] ?? '',
-        webpage: doc['webpage'] ?? '',
-        facebook: doc['facebook'] ?? '',
-        instagram: doc['instagram'] ?? '',
+        name: doc.data()['name'] ?? '',
+        email: doc.data()['email'] ?? '',
+        phone: doc.data()['phone'] ?? '',
+        title: doc.data()['title'] ?? '',
+        cuisine: doc.data()['cuisine'] ?? '',
+        description: doc.data()['description'] ?? '',
+        webpage: doc.data()['webpage'] ?? '',
+        facebook: doc.data()['facebook'] ?? '',
+        instagram: doc.data()['instagram'] ?? '',
+        imgL: doc.data()['imgL'] ?? '',
+        imgA: doc.data()['imgA'] ?? '',
+        imgB: doc.data()['imgB'] ?? '',
+        imgC: doc.data()['imgC'] ?? '',
         enabled: doc['enabled'] ?? false,
-        open: doc['open'] ?? false,
-        opening: doc['opening'] ?? false,
-        closing: doc['closing'] ?? false,
-        latitude: (doc['latitude'] as num).toDouble() ?? (0 as double),
-        longitude: (doc['longitude'] as num).toDouble() ?? (0 as double),
-        localized: doc['localized'] ?? Timestamp(0, 0),
-        created: doc['created'] ?? Timestamp(0, 0),
-        updated: doc['updated'] ?? Timestamp(0, 0),
+        open: doc.data()['open'] ?? false,
+        //opening: doc.data()['opening'] ?? false,
+        //closing: doc.data()['closing'] ?? false,
+        latitude: (doc.data()['latitude'] as num).toDouble() ?? (0 as double),
+        longitude: (doc.data()['longitude'] as num).toDouble() ?? (0 as double),
+        localized: doc.data()['localized'] ?? Timestamp(0, 0),
+        created: doc.data()['created'] ?? Timestamp(0, 0),
+        updated: doc.data()['updated'] ?? Timestamp(0, 0),
       );
     } else {
       return null;
@@ -102,10 +146,14 @@ class DbFoodTrucksService {
         webpage: doc.data()['webpage'] ?? '',
         facebook: doc.data()['facebook'] ?? '',
         instagram: doc.data()['instagram'] ?? '',
+        imgL: doc.data()['imgL'] ?? '',
+        imgA: doc.data()['imgA'] ?? '',
+        imgB: doc.data()['imgB'] ?? '',
+        imgC: doc.data()['imgC'] ?? '',
         enabled: doc.data()['enabled'] ?? false,
         open: doc.data()['open'] ?? false,
-        opening: doc.data()['opening'] ?? 0,
-        closing: doc.data()['closing'] ?? 0,
+        //opening: doc.data()['opening'] ?? 0,
+        //closing: doc.data()['closing'] ?? 0,
         latitude: (doc.data()['latitude'] as num).toDouble() ?? (0 as double),
         longitude: (doc.data()['longitude'] as num).toDouble() ?? (0 as double),
         localized: doc.data()['localized'] ?? Timestamp(0, 0),

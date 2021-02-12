@@ -12,10 +12,10 @@ class FoodTruck {
   final String webpage;
   final String facebook;
   final String instagram;
-        String imgL; // logo
-        String imgA;
-        String imgB;
-        String imgC;
+  final String imgL; // logo
+  final String imgA;
+  final String imgB;
+  final String imgC;
   final double latitude; // GPS
   final double longitude; // GPS
         double distance;

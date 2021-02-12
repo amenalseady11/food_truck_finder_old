@@ -191,7 +191,7 @@ packages:
     source: hosted
     version: "0.3.0"
   firebase_storage:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: firebase_storage
       url: "https://pub.dartlang.org"

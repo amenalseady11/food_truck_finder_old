@@ -5,14 +5,14 @@ import 'dart:math';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_image/firebase_image.dart';
-import '../widgets/mysmalliconlabel_widget.dart';
-import '../widgets/my_open_widget.dart';
-import '../widgets/my_closed_widget.dart';
-import '../widgets/my_page_widget.dart';
-import '../models/userlocation_model.dart';
-import '../models/foodtruck_model.dart';
-import '../models/total_model.dart';
-import '../colors.dart';
+import '../../widgets/mysmalliconlabel_widget.dart';
+import '../../widgets/my_open_widget.dart';
+import '../../widgets/my_closed_widget.dart';
+import '../../widgets/my_page_widget.dart';
+import '../../models/userlocation_model.dart';
+import '../../models/foodtruck_model.dart';
+import '../../models/total_model.dart';
+import '../../colors.dart';
 
 class ListScreen extends StatefulWidget {
   @override
@@ -95,9 +95,10 @@ class FoodTruckTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String imgL = 'gs://foodtruckfinder-proj.appspot.com/' +
-        foodtruck.id.toString() +
-        '_L.jpg';
+    final String imgL = 'gs://foodtruckfinder-proj.appspot.com/' + foodtruck.imgL;
+    final String imgA = 'gs://foodtruckfinder-proj.appspot.com/' + foodtruck.imgA;
+    final String imgB = 'gs://foodtruckfinder-proj.appspot.com/' + foodtruck.imgB;
+    final String imgC = 'gs://foodtruckfinder-proj.appspot.com/' + foodtruck.imgC;
 
     return ListTile(
       contentPadding: EdgeInsets.only(left: 20, right: 20, top: 0, bottom: 0),

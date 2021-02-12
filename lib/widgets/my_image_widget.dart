@@ -16,14 +16,14 @@ class MyImage extends StatelessWidget {
       clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Image(
         image: FirebaseImage(path),
-        fit: BoxFit.fitHeight,
-        //width: 80,
-        height: 150,
+        fit: BoxFit.fill,
+        //width: 300,
+        height: 200,
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
-      elevation: 1,
+      elevation: 3,
       //margin: EdgeInsets.only(bottom: 20),
     );
   }

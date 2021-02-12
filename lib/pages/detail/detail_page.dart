@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:provider/provider.dart';
-import 'package:firebase_image/firebase_image.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import '../colors.dart';
-import '../models/foodtruck_model.dart';
+import '../../colors.dart';
+import '../../models/foodtruck_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../widgets/my_title_widget.dart';
-import '../widgets/my_cuisine_widget.dart';
-import '../widgets/my_logo_widget.dart';
-import '../widgets/my_label_widget.dart';
-import '../widgets/my_images_widget.dart';
-import '../widgets/my_article_widget.dart';
-import '../widgets/my_formitem_widget.dart';
+import '../../widgets/my_title_widget.dart';
+import '../../widgets/my_cuisine_widget.dart';
+import '../../widgets/my_logo_widget.dart';
+import '../../widgets/my_label_widget.dart';
+import '../../widgets/my_images_widget.dart';
+import '../../widgets/my_article_widget.dart';
+import '../../widgets/my_formitem_widget.dart';
 
 // ----------------------------------------------------------------------------
 
@@ -98,18 +95,14 @@ class _DetailPageState extends State<DetailPage> {
       );
     }
 
-    final String _imgL = 'gs://foodtruckfinder-proj.appspot.com/' +
-        foodtruck.id.toString() +
-        '_L.jpg';
-    final String _imgA = 'gs://foodtruckfinder-proj.appspot.com/' +
-        foodtruck.id.toString() +
-        '_A.jpg';
-    final String _imgB = 'gs://foodtruckfinder-proj.appspot.com/' +
-        foodtruck.id.toString() +
-        '_B.jpg';
-    final String _imgC = 'gs://foodtruckfinder-proj.appspot.com/' +
-        foodtruck.id.toString() +
-        '_C.jpg';
+    final String _imgL =
+        'gs://foodtruckfinder-proj.appspot.com/' + foodtruck.imgL;
+    final String _imgA =
+        'gs://foodtruckfinder-proj.appspot.com/' + foodtruck.imgA;
+    final String _imgB =
+        'gs://foodtruckfinder-proj.appspot.com/' + foodtruck.imgB;
+    final String _imgC =
+        'gs://foodtruckfinder-proj.appspot.com/' + foodtruck.imgC;
 
     final List<String> imgList = [_imgA, _imgB, _imgC];
 

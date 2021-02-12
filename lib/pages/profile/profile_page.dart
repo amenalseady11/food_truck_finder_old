@@ -66,7 +66,6 @@ class _ProfilePageState extends State<ProfilePage> {
     final user = Provider.of<User>(context);
     final foodtrucks = Provider.of<List<FoodTruck>>(context);
     FoodTruck profile;
-    String _imgL;
     GoogleMapController mapController;
     String _mapStyle;
     List<Marker> markers = <Marker>[];
@@ -82,9 +81,16 @@ class _ProfilePageState extends State<ProfilePage> {
         });
       }
 
-      _imgL = 'gs://foodtruckfinder-proj.appspot.com/' +
-          profile.id.toString() +
-          '_L.jpg';
+      final String _imgL =
+          'gs://foodtruckfinder-proj.appspot.com/' + profile.imgL;
+      final String _imgA =
+          'gs://foodtruckfinder-proj.appspot.com/' + profile.imgA;
+      final String _imgB =
+          'gs://foodtruckfinder-proj.appspot.com/' + profile.imgB;
+      final String _imgC =
+          'gs://foodtruckfinder-proj.appspot.com/' + profile.imgC;
+
+      final List<String> imgList = [_imgA, _imgB, _imgC];
 
       CameraPosition myLocation = CameraPosition(
         target: LatLng(profile.latitude, profile.longitude),
@@ -110,13 +116,16 @@ class _ProfilePageState extends State<ProfilePage> {
           backgroundColor: Colors.white, //grey[100],
           iconTheme: new IconThemeData(color: skyorangeColor),
           elevation: 0,
-          actions: [IconButton(
-            icon: Icon(Icons.edit),
-            tooltip: "Edit",
-            onPressed: () {
-              Navigator.pushNamed(context, "/profile_edit");
-            },
-          ),],
+          actions: [
+            IconButton(
+              icon: Icon(Icons.edit),
+              tooltip: "Edit",
+              onPressed: () {
+                Navigator.pushNamed(context, "/profile_edit");
+                setState(() {});
+              },
+            ),
+          ],
         ),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
@@ -175,6 +184,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 // --- DESCRIPTION ---
                 MyLabel(label: 'Description'),
                 MyArticle(text: profile.description),
+                // --- IMAGES ---
+                MyLabel(label: 'Gallery'),
+                MyImages(list: imgList),
                 // --- CONTACT ---
                 MyLabel(label: 'Contact'),
                 Container(

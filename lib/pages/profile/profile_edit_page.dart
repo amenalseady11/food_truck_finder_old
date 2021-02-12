@@ -1,12 +1,16 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:food_truck_finder/services/auth_service.dart';
+import 'package:food_truck_finder/services/db_foodtrucks_service.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_image/firebase_image.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as Path;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:image_picker/image_picker.dart';
@@ -97,24 +101,13 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
         txtFacebook.text = profile.facebook;
         txtInstagram.text = profile.instagram;
         txtWebpage.text = profile.webpage;
+
+        _imgL = 'gs://foodtruckfinder-proj.appspot.com/' + profile.imgL;
+        _imgA = 'gs://foodtruckfinder-proj.appspot.com/' + profile.imgA;
+        _imgB = 'gs://foodtruckfinder-proj.appspot.com/' + profile.imgB;
+        _imgC = 'gs://foodtruckfinder-proj.appspot.com/' + profile.imgC;
       }
     }
-
-    _imgL = 'gs://foodtruckfinder-proj.appspot.com/' +
-        profile.id.toString() +
-        '_L.jpg';
-
-    _imgA = 'gs://foodtruckfinder-proj.appspot.com/' +
-        profile.id.toString() +
-        '_A.jpg';
-
-    _imgB = 'gs://foodtruckfinder-proj.appspot.com/' +
-        profile.id.toString() +
-        '_B.jpg';
-
-    _imgC = 'gs://foodtruckfinder-proj.appspot.com/' +
-        profile.id.toString() +
-        '_C.jpg';
 
     CameraPosition myLocation = CameraPosition(
       target: LatLng(profile.latitude, profile.longitude),
@@ -140,6 +133,13 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
         backgroundColor: Colors.white, //grey[100],
         iconTheme: new IconThemeData(color: skyorangeColor),
         elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          tooltip: "Back",
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.save),
@@ -160,7 +160,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           ),
           child: Column(
             children: [
-              // LOGO -----
+              // LOGO ----- 
               MyLabel(label: 'Logo'),
               MyLogo(path: _imgL),
               Row(
@@ -175,13 +175,27 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     onPressed: () async {
                       PickedFile pickedFile = await ImagePicker().getImage(
                         source: ImageSource.gallery,
-                        maxWidth: 800,
-                        maxHeight: 800,
+                        maxWidth: 400,
+                        maxHeight: 400,
                       );
                       if (pickedFile != null) {
-                        File imageFile = File(pickedFile.path);
+                        File _img = File(pickedFile.path);
+                        String _rtc =
+                            DateTime.now().millisecondsSinceEpoch.toString();
+                        String _name =
+                            user.uid.toString() + '_' + _rtc + '_L.png';
+                        try {
+                          // Save image into firebase store
+                          await FirebaseStorage.instance
+                              .ref(_name)
+                              .putFile(_img);
+                          // Save image name into firebase
+                          await DbFoodTrucksService(uid: user.uid)
+                              .updateImgL(_name);
+                        } on FirebaseException catch (e) {
+                          // e.g, e.code == 'canceled'
+                        }
                       }
-
                       //Navigator.pushNamed(context, "/logo_gallery");
                     },
                   ),
@@ -195,13 +209,27 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     onPressed: () async {
                       PickedFile pickedFile = await ImagePicker().getImage(
                         source: ImageSource.camera,
-                        maxWidth: 800,
-                        maxHeight: 800,
+                        maxWidth: 400,
+                        maxHeight: 400,
                       );
                       if (pickedFile != null) {
-                        File imageFile = File(pickedFile.path);
+                        File _img = File(pickedFile.path);
+                        String _rtc =
+                            DateTime.now().millisecondsSinceEpoch.toString();
+                        String _name =
+                            user.uid.toString() + '_' + _rtc + '_L.png';
+                        try {
+                          // Save image into firebase store
+                          await FirebaseStorage.instance
+                              .ref(_name)
+                              .putFile(_img);
+                          // Save image name into firebase
+                          await DbFoodTrucksService(uid: user.uid)
+                              .updateImgL(_name);
+                        } on FirebaseException catch (e) {
+                          // e.g, e.code == 'canceled'
+                        }
                       }
-
                       //Navigator.pushNamed(context, "/logo_gallery");
                     },
                   ),
@@ -228,8 +256,31 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                       color: skyorangeColor,
                     ),
                     tooltip: "Logo from gallery",
-                    onPressed: () {
-                      Navigator.pushNamed(context, "/logo_gallery");
+                    onPressed: () async {
+                      PickedFile pickedFile = await ImagePicker().getImage(
+                        source: ImageSource.gallery,
+                        maxWidth: 800,
+                        maxHeight: 800, 
+                      );
+                      if (pickedFile != null) {
+                        File _img = File(pickedFile.path);
+                        String _rtc =
+                            DateTime.now().millisecondsSinceEpoch.toString();
+                        String _name =
+                            user.uid.toString() + '_' + _rtc + '_A.png';
+                        try {
+                          // Save image into firebase store
+                          await FirebaseStorage.instance
+                              .ref(_name)
+                              .putFile(_img);
+                          // Save image name into firebase
+                          await DbFoodTrucksService(uid: user.uid)
+                              .updateImgA(_name);
+                        } on FirebaseException catch (e) {
+                          // e.g, e.code == 'canceled'
+                        }
+                      }
+                      //Navigator.pushNamed(context, "/logo_gallery");
                     },
                   ),
                   SizedBox(width: 30),
@@ -239,14 +290,205 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                       color: skyorangeColor,
                     ),
                     tooltip: "Logo from camera",
-                    onPressed: () {
-                      Navigator.pushNamed(context, "/logo_gallery");
+                    onPressed: () async {
+                      PickedFile pickedFile = await ImagePicker().getImage(
+                        source: ImageSource.camera,
+                        maxWidth: 800,
+                        maxHeight: 800,
+                      );
+                      if (pickedFile != null) {
+                        File _img = File(pickedFile.path);
+                        String _rtc =
+                            DateTime.now().millisecondsSinceEpoch.toString();
+                        String _name =
+                            user.uid.toString() + '_' + _rtc + '_A.png';
+                        try {
+                          // Save image into firebase store
+                          await FirebaseStorage.instance
+                              .ref(_name)
+                              .putFile(_img);
+                          // Save image name into firebase
+                          await DbFoodTrucksService(uid: user.uid)
+                              .updateImgA(_name);
+                        } on FirebaseException catch (e) {
+                          // e.g, e.code == 'canceled'
+                        }
+                      }
+                      //Navigator.pushNamed(context, "/logo_gallery");
                     },
                   ),
                 ],
               ),
               MyImage(path: _imgB),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      MdiIcons.folderImage,
+                      color: skyorangeColor,
+                    ),
+                    tooltip: "Logo from gallery",
+                    onPressed: () async {
+                      PickedFile pickedFile = await ImagePicker().getImage(
+                        source: ImageSource.gallery,
+                        maxWidth: 800,
+                        maxHeight: 800, 
+                      );
+                      if (pickedFile != null) {
+                        File _img = File(pickedFile.path);
+                        String _rtc =
+                            DateTime.now().millisecondsSinceEpoch.toString();
+                        String _name =
+                            user.uid.toString() + '_' + _rtc + '_B.png';
+                        try {
+                          // Save image into firebase store
+                          await FirebaseStorage.instance
+                              .ref(_name)
+                              .putFile(_img);
+                          // Save image name into firebase
+                          await DbFoodTrucksService(uid: user.uid)
+                              .updateImgB(_name);
+                        } on FirebaseException catch (e) {
+                          // e.g, e.code == 'canceled'
+                        }
+                      }
+                      //Navigator.pushNamed(context, "/logo_gallery");
+                    },
+                  ),
+                  SizedBox(width: 30),
+                  IconButton(
+                    icon: Icon(
+                      MdiIcons.camera,
+                      color: skyorangeColor,
+                    ),
+                    tooltip: "Logo from camera",
+                    onPressed: () async {
+                      PickedFile pickedFile = await ImagePicker().getImage(
+                        source: ImageSource.camera,
+                        maxWidth: 800,
+                        maxHeight: 800,
+                      );
+                      if (pickedFile != null) {
+                        File _img = File(pickedFile.path);
+                        String _rtc =
+                            DateTime.now().millisecondsSinceEpoch.toString();
+                        String _name =
+                            user.uid.toString() + '_' + _rtc + '_B.png';
+                        try {
+                          // Save image into firebase store
+                          await FirebaseStorage.instance
+                              .ref(_name)
+                              .putFile(_img);
+                          // Save image name into firebase
+                          await DbFoodTrucksService(uid: user.uid)
+                              .updateImgB(_name);
+                        } on FirebaseException catch (e) {
+                          // e.g, e.code == 'canceled'
+                        }
+                      }
+                      //Navigator.pushNamed(context, "/logo_gallery");
+                    },
+                  ),
+                ],
+              ),
               MyImage(path: _imgC),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      MdiIcons.trashCan,
+                      color: skyorangeColor,
+                    ),
+                    tooltip: "Logo delete",
+                    onPressed: () async {
+                       if (_imgC.length > 0) {
+                        try {
+                          // Save image into firebase store
+                          await FirebaseStorage.instance
+                              .ref(profile.imgC)
+                              .delete();
+                          // Save image name into firebase
+                          await DbFoodTrucksService(uid: user.uid)
+                              .updateImgC('');
+                        } on FirebaseException catch (e) {
+                          // e.g, e.code == 'canceled'
+                        }
+                      }
+                      //Navigator.pushNamed(context, "/logo_gallery");
+                    },
+                  ),
+                  SizedBox(width: 30),
+                  IconButton(
+                    icon: Icon(
+                      MdiIcons.folderImage,
+                      color: skyorangeColor,
+                    ),
+                    tooltip: "Logo from gallery",
+                    onPressed: () async {
+                      PickedFile pickedFile = await ImagePicker().getImage(
+                        source: ImageSource.gallery,
+                        maxWidth: 800,
+                        maxHeight: 800, 
+                      );
+                      if (pickedFile != null) {
+                        File _img = File(pickedFile.path);
+                        String _rtc =
+                            DateTime.now().millisecondsSinceEpoch.toString();
+                        String _name =
+                            user.uid.toString() + '_' + _rtc + '_C.png';
+                        try {
+                          // Save image into firebase store
+                          await FirebaseStorage.instance
+                              .ref(_name)
+                              .putFile(_img);
+                          // Save image name into firebase
+                          await DbFoodTrucksService(uid: user.uid)
+                              .updateImgC(_name);
+                        } on FirebaseException catch (e) {
+                          // e.g, e.code == 'canceled'
+                        }
+                      }
+                      //Navigator.pushNamed(context, "/logo_gallery");
+                    },
+                  ),
+                  SizedBox(width: 30),
+                  IconButton(
+                    icon: Icon(
+                      MdiIcons.camera,
+                      color: skyorangeColor,
+                    ),
+                    tooltip: "Logo from camera",
+                    onPressed: () async {
+                      PickedFile pickedFile = await ImagePicker().getImage(
+                        source: ImageSource.camera,
+                        maxWidth: 800,
+                        maxHeight: 800,
+                      );
+                      if (pickedFile != null) {
+                        File _img = File(pickedFile.path);
+                        String _rtc =
+                            DateTime.now().millisecondsSinceEpoch.toString();
+                        String _name =
+                            user.uid.toString() + '_' + _rtc + '_C.png';
+                        try {
+                          // Save image into firebase store
+                          await FirebaseStorage.instance
+                              .ref(_name)
+                              .putFile(_img);
+                          // Save image name into firebase
+                          await DbFoodTrucksService(uid: user.uid)
+                              .updateImgC(_name);
+                        } on FirebaseException catch (e) {
+                          // e.g, e.code == 'canceled'
+                        }
+                      }
+                      //Navigator.pushNamed(context, "/logo_gallery");
+                    },
+                  ),
+                ],
+              ),
             ],
           ),
         ),

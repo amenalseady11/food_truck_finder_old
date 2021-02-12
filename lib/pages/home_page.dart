@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:food_truck_finder/models/userlocation_model.dart';
-import 'package:food_truck_finder/services/location_service.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
-import 'list_screen.dart';
-import 'map_screen.dart';
-import '../services/db_foodtrucks_service.dart';
+import 'list/list_screen.dart';
+import 'map/map_screen.dart';
 import '../models/foodtruck_model.dart';
 import '../models/total_model.dart';
 import '../colors.dart';

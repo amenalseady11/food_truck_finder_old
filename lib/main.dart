@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'pages/home_page.dart';
-import 'pages/detail_page.dart';
+import 'pages/detail/detail_page.dart';
 import 'pages/profile/profile_page.dart';
 import 'pages/profile/profile_edit_page.dart';
 import 'services/auth_service.dart';

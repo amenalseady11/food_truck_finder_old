@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:provider/provider.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../models/userlocation_model.dart';
-import '../models/foodtruck_model.dart';
-import '../models/total_model.dart';
-import '../colors.dart';
+import '../../models/userlocation_model.dart';
+import '../../models/foodtruck_model.dart';
+import '../../models/total_model.dart';
+import '../../colors.dart';
 
 class MapScreen extends StatefulWidget {
   @override
